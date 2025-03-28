@@ -3,14 +3,45 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Quiz Master - Home</title>
+    <title>QuizMaster - Challenge Yourself!</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='home.css') }}">
 </head>
 <body>
-    <div class="container">
-        <h1>Welcome to Quiz Master</h1>
-        <div class="buttons">
-            <a href="{{ url_for('login') }}" class="btn">Login</a>
-            <a href="{{ url_for('register') }}" class="btn">Register</a>
+    <header>
+        <nav>
+            <div class="logo">QuizMaster</div>
+            <ul class="nav-links">
+                <li><a href="{{ url_for('login') }}">Login</a></li>
+                <li><a href="{{ url_for('register') }}">Register</a></li>
+                
+                <li><a href="#">About</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <section class="hero">
+        <h1>Test Your Knowledge with Engaging Quizzes!</h1>
+        <p>Compete, Learn, and Improve.</p>
+        <a href="{{ url_for('register') }}" class="cta-btn">Get Started</a>
+    </section>
+
+    <section class="features">
+        <div class="feature">
+            <h2>📘 Wide Range of Topics</h2>
+            <p>Explore quizzes across multiple subjects.</p>
         </div>
-    </
+        <div class="feature">
+            <h2>⏳ Timed Challenges</h2>
+            <p>Beat the clock and test your knowledge under pressure.</p>
+        </div>
+        <div class="feature">
+            <h2>🏆 Track & Improve</h2>
+            <p>Check your scores, review mistakes, and improve over time.</p>
+        </div>
+    </section>
+
+    <footer>
+        <p>&copy; 2025 QuizMaster | All rights reserved.</p>
+    </footer>
+</body>
+</html>

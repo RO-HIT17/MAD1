@@ -1,41 +1,114 @@
-body {
-    font-family: Arial, sans-serif;
-    text-align: center;
-    background-color: #f4f4f4;
+/* Reset Styles */
+* {
     margin: 0;
     padding: 0;
+    box-sizing: border-box;
+    font-family: 'Poppins', sans-serif;
 }
 
-.container {
-    width: 100%;
-    max-width: 400px;
-    margin: 100px auto;
-    background: white;
+/* Header and Navigation */
+header {
+    background: #1E1E2E;
+    padding: 15px 0;
+    color: white;
+}
+
+nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    max-width: 1200px;
+    margin: auto;
+    padding: 0 20px;
+}
+
+.logo {
+    font-size: 24px;
+    font-weight: bold;
+    color: #F8C537;
+}
+
+.nav-links {
+    list-style: none;
+    display: flex;
+}
+
+.nav-links li {
+    margin: 0 15px;
+}
+
+.nav-links a {
+    text-decoration: none;
+    color: white;
+    font-weight: 500;
+    transition: 0.3s;
+}
+
+.nav-links a:hover {
+    color: #F8C537;
+}
+
+/* Hero Section */
+.hero {
+    text-align: center;
+    padding: 100px 20px;
+    background: linear-gradient(135deg, #007BFF, #6610F2);
+    color: white;
+}
+
+.hero h1 {
+    font-size: 42px;
+    margin-bottom: 10px;
+}
+
+.hero p {
+    font-size: 20px;
+    margin-bottom: 20px;
+}
+
+.cta-btn {
+    display: inline-block;
+    background: #F8C537;
+    color: #1E1E2E;
+    padding: 12px 25px;
+    text-decoration: none;
+    font-weight: bold;
+    border-radius: 25px;
+    transition: 0.3s;
+}
+
+.cta-btn:hover {
+    background: #FFD700;
+}
+
+/* Features Section */
+.features {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    max-width: 1100px;
+    margin: 50px auto;
+    text-align: center;
+}
+
+.feature {
+    background: #1E1E2E;
+    color: white;
     padding: 20px;
     border-radius: 10px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    flex: 1;
+    transition: 0.3s;
 }
 
-h1 {
-    color: #333;
+.feature:hover {
+    background: #282842;
 }
 
-.buttons {
-    margin-top: 20px;
-}
-
-.btn {
-    display: block;
-    text-decoration: none;
-    background-color: #007BFF;
+/* Footer */
+footer {
+    text-align: center;
+    padding: 15px;
+    background: #1E1E2E;
     color: white;
-    padding: 10px;
-    margin: 10px 0;
-    border-radius: 5px;
-    font-size: 18px;
+    margin-top: 50px;
 }
-
-.btn:hover {
-    background-color: #0056b3;
-}
-

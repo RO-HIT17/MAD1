@@ -1,44 +1,74 @@
+/* General Styles */
 body {
-    font-family: Arial, sans-serif;
-    background-color: #f4f4f4;
+    font-family: 'Poppins', sans-serif;
+    background: linear-gradient(135deg, #007BFF, #6610F2);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+}
+
+/* Login Container */
+.login-container {
+    width: 350px;
+    padding: 25px;
+    background: white;
+    box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.2);
+    border-radius: 10px;
     text-align: center;
 }
 
-.login-container {
-    width: 300px;
-    padding: 20px;
-    background: white;
-    margin: 100px auto;
-    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
-    border-radius: 10px;
+/* Title */
+.title {
+    font-size: 26px;
+    font-weight: bold;
+    color: #007bff;
+    margin-bottom: 5px;
 }
 
+/* Login Heading */
 h2 {
     color: #333;
+    margin-bottom: 15px;
 }
 
+/* Input Fields */
 input {
-    width: 90%;
-    padding: 10px;
+    width: 92%;
+    padding: 12px;
     margin: 10px 0;
     border: 1px solid #ccc;
     border-radius: 5px;
+    font-size: 16px;
+    transition: 0.3s;
 }
 
+input:focus {
+    border-color: #007bff;
+    outline: none;
+    box-shadow: 0px 0px 5px rgba(0, 123, 255, 0.5);
+}
+
+/* Button */
 button {
     width: 100%;
-    padding: 10px;
-    background-color: #007bff;
+    padding: 12px;
+    background: #007bff;
     color: white;
     border: none;
+    font-size: 16px;
     cursor: pointer;
     border-radius: 5px;
+    margin-top: 10px;
+    transition: 0.3s;
 }
 
 button:hover {
-    background-color: #0056b3;
+    background: #0056b3;
 }
 
+/* Flash Messages - Show only the last message */
 .messages {
     margin-top: 10px;
 }
@@ -47,13 +77,29 @@ button:hover {
     padding: 10px;
     color: white;
     border-radius: 5px;
+    text-align: center;
 }
 
+/* Success & Error Messages */
 .messages .success {
-    background-color: #28a745;
+    background: #28a745;
 }
 
 .messages .danger {
-    background-color: #dc3545;
+    background: #dc3545;
 }
 
+/* Register Link */
+p {
+    margin-top: 15px;
+}
+
+p a {
+    color: #007bff;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+p a:hover {
+    text-decoration: underline;
+}

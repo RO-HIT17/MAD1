@@ -32,8 +32,12 @@ with app.app_context():
         print("✅ Admin user created!")
     else:
         print("⚠️ Admin user already exists.")
-        
+ 
 @app.route('/')
+def home():
+    return render_template('home.html')
+        
+@app.route('/log')
 def log():
     return render_template('login.html')
 

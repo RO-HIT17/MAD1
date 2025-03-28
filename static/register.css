@@ -1,18 +1,101 @@
+/* Google Font */
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap');
+
+/* General Styling */
 body {
-    font-family: Arial, sans-serif;
-    background-color: #f4f4f4;
-    text-align: center;
+    font-family: 'Poppins', sans-serif;
+    background: linear-gradient(135deg, #007BFF, #6610F2);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+    padding: 20px;
+    box-sizing: border-box;
 }
 
+/* Registration Container */
 .container {
-    width: 50%;
-    margin: auto;
+    width: 100%;
+    max-width: 400px;
+    padding: 25px;
     background: white;
-    padding: 20px;
-    border-radius: 10px;
-    box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.2);
-    margin-top: 50px;
+    box-shadow: 0px 5px 20px rgba(0, 0, 0, 0.3);
+    border-radius: 12px;
+    text-align: center;
+    animation: fadeIn 0.8s ease-in-out;
 }
+
+/* Heading Styles */
+h1 {
+    color: #333;
+    font-size: 26px;
+    font-weight: bold;
+    margin-bottom: 10px;
+}
+
+h1 .highlight {
+    color: #007bff;
+}
+
+h2 {
+    color: #ff9100;
+    font-size: 18px;
+    font-weight: 500;
+    margin-bottom: 20px;
+}
+
+/* Input Fields */
+.input-group {
+    text-align: left;
+    margin-bottom: 15px;
+    width: 100%;
+}
+
+.input-group label {
+    display: block;
+    font-size: 14px;
+    font-weight: 600;
+    color: #333;
+    margin-bottom: 5px;
+}
+
+.input-group input {
+    width: calc(100% - 20px);
+    padding: 10px;
+    border: 2px solid #007bff;
+    border-radius: 5px;
+    font-size: 14px;
+    display: block;
+    margin: auto;
+    transition: 0.3s;
+}
+
+.input-group input:focus {
+    border-color: #6610F2;
+    outline: none;
+    box-shadow: 0px 0px 5px rgba(102, 16, 242, 0.5);
+}
+
+/* Button */
+button {
+    width: 100%;
+    padding: 12px;
+    background: #007bff;
+    color: white;
+    border: none;
+    font-size: 16px;
+    cursor: pointer;
+    border-radius: 5px;
+    margin-top: 10px;
+    transition: 0.3s;
+}
+
+button:hover {
+    background: #0056b3;
+}
+
+/* Flash Messages */
 .messages {
     margin-top: 10px;
 }
@@ -21,71 +104,54 @@ body {
     padding: 10px;
     color: white;
     border-radius: 5px;
+    text-align: center;
 }
 
+/* Success & Error Messages */
 .messages .success {
-    background-color: #28a745;
+    background: #28a745;
 }
 
 .messages .danger {
-    background-color: #dc3545;
+    background: #dc3545;
 }
 
-h1 {
-    color: #1e3a8a;
-    font-size: 24px;
-}
-
-h2 {
-    color: #ff9100;
-    font-size: 20px;
-}
-
-form {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-}
-
-label {
-    display: block;
-    margin-top: 10px;
-    font-size: 16px;
-    color: #333;
-}
-
-input {
-    width: 80%;
-    padding: 8px;
-    margin-top: 5px;
-    border: 2px solid #1e3a8a;
-    border-radius: 5px;
-    outline: none;
-}
-
-button {
-    background: #1e3a8a;
-    color: white;
-    padding: 10px 20px;
-    margin-top: 20px;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    font-size: 16px;
-}
-
-button:hover {
-    background: #15306b;
+/* Existing User Text */
+.existing-user-text {
+    margin-top: 15px;
+    font-size: 14px;
 }
 
 .existing-user {
-    color: red;
+    color: #007bff;
     text-decoration: none;
-    font-size: 16px;
-    margin-top: 10px;
+    font-weight: bold;
 }
 
 .existing-user:hover {
     text-decoration: underline;
 }
 
+/* Responsive Design */
+@media (max-width: 450px) {
+    .container {
+        width: 90%;
+        padding: 20px;
+    }
+    
+    .input-group input {
+        width: calc(100% - 15px);
+    }
+}
+
+/* Fade In Animation */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(-20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
