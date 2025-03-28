@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>New Question</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='newquestion.css') }}">
+</head>
+<body>
+    <div class="question-container">
+        <h2 class="title">New Question</h2>
+
+        <form>
+            <label>Chapter ID:</label>
+            <input type="text" name="chapter_id">
+
+            <label>Question Title:</label>
+            <input type="text" name="question_title">
+
+            <label>Question Statement:</label>
+            <textarea name="question_statement"></textarea>
+
+            <div class="options-container">
+                <h3>Single Option Correct</h3>
+
+                <label>Option 1:</label>
+                <input type="text" name="option_1">
+
+                <label>Option 2:</label>
+                <input type="text" name="option_2">
+
+                <label>Option 3:</label>
+                <input type="text" name="option_3">
+
+                <label>Option 4:</label>
+                <input type="text" name="option_4">
+
+                <label>Correct Option:</label>
+                <input type="number" name="correct_option" min="1" max="4">
+            </div>
+
+            <div class="buttons">
+                <button type="submit" class="save">Save and Next</button>
+                <button type="button" class="close">Close</button>
+            </div>
+        </form>
+    </div>
+</body>
+</html>

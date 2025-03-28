@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>New Chapter</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='newchapter.css') }}">
+</head>
+<body>
+    <div class="chapter-container">
+        <h2 class="title">New Chapter</h2>
+        <form action="{{ url_for('add_chapter',subject_id=1) }}" method="POST">
+            <label for="name">Name :</label>
+            <input type="text" id="name" name="name" required>
+            
+            <label for="description">Description :</label>
+            <textarea id="description" name="description" required></textarea>
+
+            <p class="note">Note: may include more input fields….</p>
+            
+            <div class="button-container">
+                <button type="submit" class="save-btn">Save</button>
+                <button type="button" class="cancel-btn" onclick="history.back()">Cancel</button>
+            </div>
+        </form>
+    </div>
+</body>
+</html>

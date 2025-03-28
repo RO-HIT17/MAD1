@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Dashboard</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='admin.css') }}">
+</head>
+<body>
+    <div class="header">
+        <div class="nav-links">
+            <a href="#">Home</a> | 
+            <a href="#">Quiz</a> | 
+            <a href="#">Summary</a> | 
+            <a href="{{ url_for('logout') }}">Logout</a>
+        </div>
+        <div class="search-box">
+            <input type="text" placeholder="Search">
+            <button>Search</button>
+        </div>
+        <div class="admin-welcome">
+            Welcome Admin
+        </div>
+    </div>
+
+    <div class="dashboard-container">
+        <h1>Admin Dashboard</h1>
+
+        <div class="subjects-container">
+            <div class="subject-card">
+                <h2>Physics</h2>
+                <table>
+                    <tr>
+                        <th>Chapter Name</th>
+                        <th>No. of Questions</th>
+                        <th>Action</th>
+                    </tr>
+                    <tr>
+                        <td>Force</td>
+                        <td>xxxxxx</td>
+                        <td><a href="#">Edit</a> / <a href="#">Delete</a></td>
+                    </tr>
+                    <tr>
+                        <td>EMF</td>
+                        <td>xxxxxx</td>
+                        <td><a href="#">Edit</a> / <a href="#">Delete</a></td>
+                    </tr>
+                </table>
+                <button class="add-chapter">+ Chapter</button>
+            </div>
+
+            <div class="subject-card">
+                <h2>App Dev-I</h2>
+                <table>
+                    <tr>
+                        <th>Chapter Name</th>
+                        <th>No. of Questions</th>
+                        <th>Action</th>
+                    </tr>
+                    <tr>
+                        <td>HTML</td>
+                        <td>xxxxxx</td>
+                        <td><a href="#">Edit</a> / <a href="#">Delete</a></td>
+                    </tr>
+                    <tr>
+                        <td>CSS</td>
+                        <td>xxxxxx</td>
+                        <td><a href="#">Edit</a> / <a href="#">Delete</a></td>
+                    </tr>
+                </table>
+                <a href="{{ url_for('new_chap') }}">
+                <button class="add-chapter">+ Chapter</button>
+                </a>
+            </div>
+        </div>
+
+        <p class="all-subjects">All subjects here ...</p>
+
+        <div class="add-subject">
+            <a href="{{ url_for('new_sub') }}">
+                <button class="add-subject-btn">+</button>
+            </a>
+        </div>
+    </div>
+</body>
+</html>

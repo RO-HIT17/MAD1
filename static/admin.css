@@ -1,0 +1,129 @@
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f8f9fa;
+    margin: 0;
+    padding: 0;
+    text-align: center;
+}
+
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #dbeafe;
+    padding: 10px 20px;
+    font-size: 18px;
+    border-bottom: 2px solid #1e3a8a;
+}
+
+.nav-links a {
+    text-decoration: none;
+    color: #1e3a8a;
+    font-weight: bold;
+}
+
+.nav-links a:hover {
+    text-decoration: underline;
+}
+
+.search-box input {
+    padding: 5px;
+    border: 2px solid #1e3a8a;
+    border-radius: 5px;
+}
+
+.search-box button {
+    background-color: #1e3a8a;
+    color: white;
+    border: none;
+    padding: 5px 10px;
+    cursor: pointer;
+    border-radius: 5px;
+}
+
+.search-box button:hover {
+    background-color: #15306b;
+}
+
+.admin-welcome {
+    font-weight: bold;
+    color: #1e3a8a;
+}
+
+.dashboard-container {
+    width: 80%;
+    margin: auto;
+    padding: 20px;
+}
+
+.subjects-container {
+    display: flex;
+    justify-content: space-around;
+    margin-top: 20px;
+}
+
+.subject-card {
+    background-color: white;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.2);
+    width: 45%;
+    text-align: center;
+}
+
+.subject-card h2 {
+    color: #1e3a8a;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 10px;
+}
+
+table, th, td {
+    border: 1px solid #1e3a8a;
+}
+
+th, td {
+    padding: 10px;
+    text-align: center;
+}
+
+.add-chapter {
+    background-color: #ff6b6b;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    margin-top: 10px;
+    cursor: pointer;
+}
+
+.add-chapter:hover {
+    background-color: #d64040;
+}
+
+.all-subjects {
+    font-size: 18px;
+    color: #1e3a8a;
+    margin-top: 20px;
+}
+
+.add-subject {
+    margin-top: 20px;
+}
+
+.add-subject-btn {
+    background-color: orange;
+    color: white;
+    border: none;
+    padding: 20px;
+    font-size: 24px;
+    border-radius: 50%;
+    cursor: pointer;
+}
+
+.add-subject-btn:hover {
+    background-color: #cc8400;
+}

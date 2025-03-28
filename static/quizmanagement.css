@@ -1,0 +1,111 @@
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f4f4f4;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+}
+
+.quiz-container {
+    background: white;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.2);
+    width: 700px;
+    text-align: center;
+}
+
+header {
+    margin-bottom: 20px;
+}
+
+nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 14px;
+}
+
+.search-bar {
+    display: inline-block;
+}
+
+.search-bar input {
+    padding: 5px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+.search-bar button {
+    background: #3b82f6;
+    color: white;
+    padding: 5px 10px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.welcome-text {
+    font-weight: bold;
+    color: #333;
+}
+
+.quiz-list {
+    display: flex;
+    justify-content: space-between;
+}
+
+.quiz-box {
+    background: #eef2ff;
+    padding: 10px;
+    border-radius: 8px;
+    width: 48%;
+}
+
+.quiz-box h3 {
+    color: #3b82f6;
+    margin-bottom: 10px;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    background: white;
+}
+
+th, td {
+    border: 1px solid #ddd;
+    padding: 8px;
+    text-align: center;
+}
+
+th {
+    background: #3b82f6;
+    color: white;
+}
+
+.add-question {
+    background: #ff6b6b;
+    color: white;
+    border: none;
+    padding: 8px;
+    border-radius: 5px;
+    margin-top: 10px;
+    cursor: pointer;
+}
+
+.all-quizzes {
+    margin-top: 15px;
+    font-size: 14px;
+}
+
+.new-quiz {
+    background: #4caf50;
+    color: white;
+    border: none;
+    padding: 8px 12px;
+    border-radius: 5px;
+    cursor: pointer;
+}

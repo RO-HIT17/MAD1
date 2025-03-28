@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quiz Management</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='quizmanagement.css') }}">
+</head>
+<body>
+    <div class="quiz-container">
+        <header>
+            <h2 class="title">Quiz Management</h2>
+            <nav>
+                <a href="#">Home</a> | 
+                <a href="#">Quiz</a> | 
+                <a href="#">Summary</a> | 
+                <a href="#">Logout</a>
+                <div class="search-bar">
+                    <input type="text" placeholder="Search users/subject/quiz">
+                    <button>Search</button>
+                </div>
+                <span class="welcome-text">Welcome Admin</span>
+            </nav>
+        </header>
+
+        <div class="quiz-list">
+            <div class="quiz-box">
+                <h3>Quiz (CSS)</h3>
+                <table>
+                    <tr>
+                        <th>ID</th>
+                        <th>Q. Title</th>
+                        <th>Action</th>
+                    </tr>
+                    <tr>
+                        <td>1</td>
+                        <td>Classes</td>
+                        <td><a href="#">Edit/Delete</a></td>
+                    </tr>
+                    <tr>
+                        <td>2</td>
+                        <td>Internal Styles</td>
+                        <td><a href="#">Edit/Delete</a></td>
+                    </tr>
+                </table>
+                <button class="add-question">+ Question</button>
+            </div>
+
+            <div class="quiz-box">
+                <h3>Quiz (HTML)</h3>
+                <table>
+                    <tr>
+                        <th>ID</th>
+                        <th>Q. Title</th>
+                        <th>Action</th>
+                    </tr>
+                    <tr>
+                        <td>1</td>
+                        <td>&lt;h1&gt; element</td>
+                        <td><a href="#">Edit/Delete</a></td>
+                    </tr>
+                    <tr>
+                        <td>2</td>
+                        <td>&lt;div&gt; element</td>
+                        <td><a href="#">Edit/Delete</a></td>
+                    </tr>
+                    <tr>
+                        <td>3</td>
+                        <td>&lt;form&gt; element</td>
+                        <td><a href="#">Edit/Delete</a></td>
+                    </tr>
+                </table>
+                <button class="add-question">+ Question</button>
+            </div>
+        </div>
+
+        <p class="all-quizzes">All quizzes here...</p>
+        <button class="new-quiz">+ New Quiz</button>
+    </div>
+</body>
+</html>

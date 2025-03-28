@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Summary Charts</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='summary
+    .css') }}">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+    <header>
+        <nav>
+            <a href="#">Home</a> |
+            <a href="#">Scores</a> |
+            <a href="#">Summary</a> |
+            <a href="#">Logout</a>
+            <input type="text" placeholder="Search">
+            <span class="welcome">Welcome User</span>
+        </nav>
+    </header>
+
+    <h2>Summary Charts</h2>
+    <div class="chart-container">
+        <div class="chart">
+            <h3>Subject wise no. of quizzes</h3>
+            <canvas id="barChart"></canvas>
+        </div>
+        <div class="chart">
+            <h3>Month wise no. of quizzes attempted</h3>
+            <canvas id="pieChart"></canvas>
+        </div>
+    </div>
+
+    <script>
+        // Bar Chart (Subjects vs. No. of Quizzes)
+        var ctx1 = document.getElementById('barChart').getContext('2d');
+        var barChart = new Chart(ctx1, {
+            type: 'bar',
+            data: {
+                labels: ['Maths', 'Physics', 'Chemistry'],
+                datasets: [{
+                    label: 'Number of Quizzes',
+                    data: [10, 15, 12], 
+                    backgroundColor: ['blue', 'green', 'pink']
+                }]
+            }
+        });
+
+        // Pie Chart (Month-wise Quiz Attempts)
+        var ctx2 = document.getElementById('pieChart').getContext('2d');
+        var pieChart = new Chart(ctx2, {
+            type: 'pie',
+            data: {
+                labels: ['Jan', 'Feb', 'Mar'],
+                datasets: [{
+                    data: [5, 8, 12], 
+                    backgroundColor: ['red', 'yellow', 'lightblue']
+                }]
+            }
+        });
+    </script>
