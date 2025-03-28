@@ -13,7 +13,7 @@
         <!-- Timer and Question Number -->
         <div class="quiz-header">
             <div class="qno-box">QNo. <span id="qno-box">1/{{ questions|length }}</span></div>
-            <div class="timer">⏳ <span id="timer"></span></div>
+            
         </div>
 
         <!-- Progress Bar -->
@@ -51,25 +51,35 @@
 
         function startTimer() {
             let [hours, minutes] = duration.split(":").map(Number);
-            let totalSeconds = hours * 3600 + minutes * 60;
-
-            let interval = setInterval(() => {
+            let totalSeconds = hours * 3600 + minutes * 60; // Convert to total seconds
+        
+            function updateTimer() {
+                if (totalSeconds <= 0) {
+                    timerElement.innerText = "00:00";
+                    timerElement.style.color = "red"; // Ensure it's red at timeout
+                    clearInterval(interval);
+                    submitQuiz(); // Auto-submit when time runs out
+                    return;
+                }
+        
                 let mins = Math.floor(totalSeconds / 60);
                 let secs = totalSeconds % 60;
                 timerElement.innerText = `${String(mins).padStart(2, '0')}:${String(secs).padStart(2, '0')}`;
-
-                if (totalSeconds === 60) {
-                    alert("⏳ 1 minute left! Hurry up!");
+        
+                // Flash red when 10 seconds left
+                if (totalSeconds <= 10) {
+                    timerElement.style.color = totalSeconds % 2 === 0 ? "red" : "black";
+                } else {
+                    timerElement.style.color = ""; // Reset to default
                 }
-
-                if (totalSeconds <= 0) {
-                    clearInterval(interval);
-                    submitQuiz(); // Auto-submit when time runs out
-                }
-
-                totalSeconds--;
-            }, 1000);
+        
+                totalSeconds--; // Decrease AFTER updating display
+            }
+        
+            updateTimer(); // Initial call to prevent 1-sec delay
+            let interval = setInterval(updateTimer, 1000);
         }
+        
 
         function loadQuestion() {
             let question = questions[currentQuestionIndex];

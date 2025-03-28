@@ -18,8 +18,8 @@
             <a href="{{ url_for('logout') }}">Logout</a>
         </div>
         <div class="search-box">
-            <input type="text" id="search-input" placeholder="Search..." onkeyup="filterScores()">
-            <i class="fas fa-search"></i>
+            <input type="text" id="searchInput" placeholder="Search subject...">
+            <button onclick="searchSubjects()">Search 🔍</button>
         </div>
         <div class="user-welcome">
             Welcome, {{ session.get('username', 'User') }}!
@@ -66,6 +66,19 @@
                 row.style.display = text.includes(searchValue) ? "" : "none";
             });
         }
+        
+        function searchSubjects() {
+            let input = document.getElementById("searchInput").value.toLowerCase();
+            let rows = document.querySelectorAll("#scores-body tr");
+        
+            rows.forEach(row => {
+                let chapter = row.children[1].textContent.toLowerCase(); // Get chapter name from 2nd column
+                row.style.display = chapter.includes(input) ? "" : "none"; // Show/Hide row based on search
+            });
+        }
+
+        document.getElementById("searchInput").addEventListener("keyup", searchSubjects);
+            
     </script>
 </body>
 </html>
