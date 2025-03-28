@@ -154,8 +154,8 @@ def quiz_management():
     quizzes = (
         Quiz.query
         .options(
-            joinedload(Quiz.chapter),  # Load chapter details
-            joinedload(Quiz.questions)  # Load all related questions
+            joinedload(Quiz.chapter),  
+            joinedload(Quiz.questions)  
         )
         .all()
     )
@@ -166,7 +166,7 @@ def quiz_management():
 def summary():
     return render_template('summary.html')
 
-#---------------------------------------------------------------------------------
+
 
 @app.route('/login', methods=['GET', 'POST'])
 def login():
@@ -235,7 +235,7 @@ def register():
 
     return render_template('register.html')
 
-#---------------------------------------------------------------------------------
+
 
 @app.route('/add_subject', methods=['POST'])
 def add_subject():
@@ -276,12 +276,12 @@ def add_quiz():
         chapter_id = request.form.get("chapter_id")
         date_of_quiz = request.form.get("date")
         time_duration = request.form.get("duration")
-        remarks = request.form.get("remarks", "")  # Optional field
+        remarks = request.form.get("remarks", "")  
 
-        # Convert date from string to Python Date object
+        
         date_of_quiz = datetime.strptime(date_of_quiz, "%Y-%m-%d").date()
 
-        # Create new quiz instance
+        
         new_quiz = Quiz(
             chapter_id=chapter_id,
             date_of_quiz=date_of_quiz,
@@ -289,7 +289,7 @@ def add_quiz():
             remarks=remarks
         )
 
-        # Add to database and commit
+        
         db.session.add(new_quiz)
         db.session.commit()
 
@@ -304,25 +304,25 @@ def add_quiz():
 @app.route("/new_question/<int:quiz_id>")
 def new_question(quiz_id):
     quiz = Quiz.query.get_or_404(quiz_id)
-    quizzes = Quiz.query.options(joinedload(Quiz.chapter)).all()  # Fetch all quizzes
+    quizzes = Quiz.query.options(joinedload(Quiz.chapter)).all()  
 
     return render_template("newquestion.html", quiz=quiz, quizzes=quizzes)
 
 @app.route("/add_question", methods=["POST"])
 def add_question():
     try:
-        quiz_id = int(request.form.get("quiz_id"))  # Convert to int
-        question_title = request.form.get("question_title")  # ✅ Get Question Title
+        quiz_id = int(request.form.get("quiz_id"))  
+        question_title = request.form.get("question_title")  
         question_statement = request.form.get("question_statement")
         option1 = request.form.get("option1")
         option2 = request.form.get("option2")
-        option3 = request.form.get("option3", "")  # Optional
-        option4 = request.form.get("option4", "")  # Optional
+        option3 = request.form.get("option3", "")  
+        option4 = request.form.get("option4", "")  
         correct_option = request.form.get("correct_option")
 
         new_question = Question(
             quiz_id=quiz_id,
-            question_title=question_title,  # ✅ Store Question Title
+            question_title=question_title,  
             question_statement=question_statement,
             option1=option1,
             option2=option2,
@@ -335,12 +335,49 @@ def add_question():
         db.session.commit()
 
         flash("Question added successfully!", "success")
-        return redirect(url_for("new_question", quiz_id=quiz_id))  # Redirect to correct quiz page
+        return redirect(url_for("new_question", quiz_id=quiz_id))  
 
     except Exception as e:
         db.session.rollback()
         flash(f"Error adding question: {str(e)}", "danger")
-        return redirect(url_for("new_question", quiz_id=quiz_id))  # Redirect with the same quiz_id
+        return redirect(url_for('quiz_management')) 
+
+
+@app.route('/chapter/edit/<int:chapter_id>', methods=['POST'])
+def edit_chapter(chapter_id):
+    chapter = Chapter.query.get_or_404(chapter_id)
+    chapter.name = request.form['chapter_name']
+    chapter.description = request.form['chapter_desc']
+    db.session.commit()
+    return redirect(url_for('admin_dashboard'))
+
+@app.route('/chapter/delete/<int:chapter_id>', methods=['POST'])
+def delete_chapter(chapter_id):
+    chapter = Chapter.query.get_or_404(chapter_id)
+    db.session.delete(chapter)
+    db.session.commit()
+    return redirect(url_for('admin_dashboard'))
+
+@app.route('/question/edit/<int:question_id>', methods=['POST'])
+def edit_question(question_id):
+    question = Question.query.get_or_404(question_id)
+    question.question_title = request.form['question_title']
+    question.question_statement = request.form['question_statement']
+    question.option1 = request.form['option1']
+    question.option2 = request.form['option2']
+    question.option3 = request.form['option3']
+    question.option4 = request.form['option4']
+    question.correct_option = request.form['correct_option']
+    db.session.commit()
+    return redirect(url_for('quiz_management'))
+
+@app.route('/question/delete/<int:question_id>', methods=['POST'])
+def delete_question(question_id):
+    question = Question.query.get_or_404(question_id)
+    db.session.delete(question)
+    db.session.commit()
+    return redirect(url_for('quiz_management'))
+
 
 @app.route('/logout')
 def logout():

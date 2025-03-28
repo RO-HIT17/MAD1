@@ -41,8 +41,12 @@
                         <td>{{ chapter.name }}</td>
                         <td>xxxxxx</td>
                         <td>
-                            <a href="#">Edit</a> / <a href="#">Delete</a>
+                            <a href="#" onclick="openEditModal({{ chapter.id }}, '{{ chapter.name }}', '{{ chapter.description }}')">Edit</a> /
+                            <form action="{{ url_for('delete_chapter', chapter_id=chapter.id) }}" method="POST" style="display:inline;">
+                                <button type="submit" class="delete-btn" onclick="return confirm('Are you sure you want to delete this chapter?');">Delete</button>
+                            </form>
                         </td>
+                        
                     </tr>
                     {% endfor %}
                 </table>
@@ -61,5 +65,40 @@
             </a>
         </div>
     </div>
+
+    <!-- Hidden Edit Chapter Modal -->
+<div id="editChapterModal" class="modal">
+    <div class="modal-content">
+        <span class="close" onclick="closeModal()">&times;</span>
+        <h2>Edit Chapter</h2>
+        <form id="editChapterForm" method="POST">
+            <input type="hidden" name="chapter_id" id="chapter_id">
+            <div class="form-group">
+                <label for="chapter_name">Chapter Name:</label>
+                <input type="text" id="chapter_name" name="chapter_name" required>
+            </div>
+            <div class="form-group">
+                <label for="chapter_desc">Description:</label>
+                <textarea id="chapter_desc" name="chapter_desc"></textarea>
+            </div>
+            <button type="submit">Save</button>
+            <button type="button" onclick="closeModal()">Cancel</button>
+        </form>
+    </div>
+</div>
+<script>
+    function openEditModal(id, name, desc) {
+        document.getElementById('editChapterModal').style.display = 'block';
+        document.getElementById('chapter_id').value = id;
+        document.getElementById('chapter_name').value = name;
+        document.getElementById('chapter_desc').value = desc;
+        document.getElementById('editChapterForm').action = `/chapter/edit/${id}`;
+    }
+    
+    function closeModal() {
+        document.getElementById('editChapterModal').style.display = 'none';
+    }
+    </script>
+    
 </body>
 </html>
