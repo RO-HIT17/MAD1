@@ -1,3 +1,4 @@
+/* Reset & Base Styles */
 body {
     font-family: Arial, sans-serif;
     background-color: #f4f4f4;
@@ -8,20 +9,26 @@ body {
     margin: 0;
 }
 
+/* Centered Form Container */
 .container {
     background: white;
-    padding: 20px;
+    padding: 25px;
     border-radius: 10px;
     box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.2);
-    width: 400px;
+    width: 100%;
+    max-width: 420px;  /* ✅ Ensures better fit on smaller screens */
     text-align: center;
 }
 
+/* Heading */
 .heading {
     color: #e67e22;
-    font-size: 22px;
+    font-size: 24px;
+    font-weight: bold;
+    margin-bottom: 15px;
 }
 
+/* Form Styling */
 .form-group {
     display: flex;
     flex-direction: column;
@@ -29,46 +36,83 @@ body {
     margin-top: 10px;
 }
 
+/* Labels */
 label {
     font-weight: bold;
     color: #276fbf;
     margin-bottom: 5px;
 }
 
-input {
+/* Input & Select Fields */
+input, select {
     width: 100%;
-    padding: 8px;
+    padding: 10px;
     margin: 3px 0;
     border: 1px solid #ccc;
     border-radius: 5px;
+    font-size: 16px;
 }
 
+/* Dropdown Arrow Fix */
+select {
+    appearance: none;
+    background-color: white;
+    cursor: pointer;
+}
+
+/* Note Text */
 .note {
     color: red;
     font-size: 14px;
     margin-top: 10px;
 }
 
+/* Button Group */
 .button-group {
     margin-top: 15px;
     display: flex;
     justify-content: space-between;
 }
 
+/* Button Styling */
 button {
     padding: 10px 15px;
     border: none;
     border-radius: 5px;
     cursor: pointer;
-    font-size: 14px;
+    font-size: 16px;
+    font-weight: bold;
+    transition: 0.2s ease-in-out;
 }
 
+/* Save Button */
 .save {
     background: #3b82f6;
     color: white;
 }
 
+/* Cancel Button */
 .cancel {
     background: #ff6b6b;
     color: white;
+}
+
+/* Button Hover Effects */
+.save:hover {
+    background: #2563eb;
+}
+
+.cancel:hover {
+    background: #e63946;
+}
+
+/* Responsive Design */
+@media (max-width: 480px) {
+    .container {
+        width: 90%;
+    }
+
+    button {
+        width: 48%; /* ✅ Ensures buttons fit properly on small screens */
+    }
 }

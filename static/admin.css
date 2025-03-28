@@ -109,9 +109,9 @@ body {
 
 /* Table Styling */
 table {
-    width: 90%;
-    margin: 20px auto;
+    width: 100%;
     border-collapse: collapse;
+    margin-top: 15px;
     border-radius: 10px;
     overflow: hidden;
     box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
@@ -124,32 +124,24 @@ th {
     background: #1e3a8a;
     color: white;
     font-size: 16px;
-    padding: 14px 10px;
+    padding: 14px;
     text-transform: uppercase;
 }
 
 /* Table Data */
 td {
-    padding: 12px 10px;
+    padding: 12px;
     font-size: 14px;
     border-bottom: 1px solid #ddd;
-    vertical-align: middle;
 }
 
-/* Action Column */
-td:last-child {
-    min-width: 180px;
-    padding: 10px 5px;
+/* Alternating Row Colors */
+tr:nth-child(even) {
+    background: #f2f2f2;
 }
 
-/* Button Container */
-.button-container {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    gap: 10px;
-    margin: 5px 0;
-    flex-wrap: nowrap;
+tr:hover {
+    background: #dce7ff;
 }
 
 /* Edit Button */
@@ -164,9 +156,6 @@ td:last-child {
     font-weight: bold;
     transition: 0.3s;
     box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.2);
-    min-width: 80px;
-    margin: 0 3px;
-    display: inline-block;
 }
 
 .edit-btn:hover {
@@ -182,9 +171,6 @@ td:last-child {
     cursor: pointer;
     font-weight: bold;
     transition: 0.3s;
-    min-width: 80px;
-    margin: 0 3px;
-    display: inline-block;
 }
 
 .add-chapter {
@@ -337,33 +323,5 @@ td:last-child {
 
     .modal-content {
         width: 80%;
-    }
-
-    td:last-child {
-        padding: 10px 5px;
-    }
-    
-    .edit-btn, .delete-btn, .add-chapter {
-        padding: 8px 12px;
-        font-size: 12px;
-        min-width: 70px;
-    }
-    
-    .button-container {
-        flex-direction: row;
-        justify-content: center;
-    }
-}
-
-/* Add extra spaces in tables for action buttons */
-@media (min-width: 769px) {
-    table tr td:last-child {
-        padding-left: 15px;
-        padding-right: 15px;
-    }
-    
-    .button-container {
-        display: flex;
-        justify-content: space-around;
     }
 }
