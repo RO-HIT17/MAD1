@@ -1,0 +1,122 @@
+/* ✅ General Styling */
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f4f4f4;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: 0;
+}
+
+/* ✅ Header Styling */
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #dbeafe;
+    padding: 10px 20px;
+    font-size: 18px;
+    border-bottom: 2px solid #1e3a8a;
+    width: 100%;
+}
+
+.nav-links a {
+    text-decoration: none;
+    color: #1e3a8a;
+    font-weight: bold;
+    margin-right: 10px;
+}
+
+.nav-links a:hover {
+    text-decoration: underline;
+}
+
+/* ✅ Search Box */
+.search-box {
+    display: flex;
+    align-items: center;
+}
+
+.search-box input {
+    padding: 5px;
+    border: 2px solid #1e3a8a;
+    border-radius: 5px;
+}
+
+.search-box button {
+    background-color: #1e3a8a;
+    color: white;
+    border: none;
+    padding: 5px 10px;
+    cursor: pointer;
+    border-radius: 5px;
+    margin-left: 5px;
+}
+
+.search-box button:hover {
+    background-color: #15306b;
+}
+
+/* ✅ User Welcome */
+.user-welcome {
+    font-weight: bold;
+    color: #1e3a8a;
+}
+
+/* ✅ Dashboard Styling */
+.dashboard {
+    width: 80%;
+    background: white;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.2);
+    margin-top: 20px;
+}
+
+h3 {
+    color: black;
+    text-align: center;
+}
+
+/* ✅ Table Styling */
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 10px;
+}
+
+th, td {
+    border: 1px solid #ddd;
+    padding: 10px;
+    text-align: center;
+}
+
+th {
+    background: #276fbf;
+    color: white;
+}
+
+/* ✅ Buttons */
+button {
+    padding: 5px 10px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+/* View Button */
+.view {
+    background: #3b82f6;
+    color: white;
+}
+
+/* Start Button */
+.start {
+    background: #38b000;
+    color: white;
+    margin-left: 5px;
+}
+
+button:hover {
+    opacity: 0.8;
+}

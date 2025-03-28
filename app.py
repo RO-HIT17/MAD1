@@ -109,21 +109,57 @@ def log():
 def reg():
     return render_template('register.html')
 
-@app.route('/dashboard')
-def dashboard():
+@app.route('/user_dashboard')
+def user_dashboard():
     if 'user_id' not in session:
         flash('Please log in first!', 'warning')
         return redirect(url_for('login'))
-    
-    return f"Welcome {session['fullname']}! This is your dashboard."
+
+    # Using JOIN to get subject name and count questions efficiently
+    quizzes = (
+        db.session.query(
+            Quiz.id,
+            Chapter.name.label("subject_name"),
+            Quiz.date_of_quiz,
+            Quiz.time_duration,
+            db.func.count(Question.id).label("num_questions")
+        )
+        .join(Chapter, Quiz.chapter_id == Chapter.id)
+        .join(Subject, Chapter.subject_id == Subject.id)
+        .outerjoin(Question, Question.quiz_id == Quiz.id)
+        .group_by(Quiz.id, Subject.name, Quiz.date_of_quiz, Quiz.time_duration)
+        .all()
+    )
+
+    return render_template('userdashboard.html', quizzes=quizzes)
 
 @app.route('/admin_dashboard')
 def admin_dashboard():
     if 'user_id' not in session or not session.get('is_admin'):
         flash('Access denied! Admins only.', 'danger')
         return redirect(url_for('login'))
+
     subjects = Subject.query.all()
-    return render_template('admin.html', subjects=subjects)
+
+    # Fetch chapters and count questions
+    subjects_with_chapters = []
+    for subject in subjects:
+        chapters = []
+        for chapter in subject.chapters:
+            question_count = Question.query.filter_by(quiz_id=chapter.id).count()
+            chapters.append({
+                'id': chapter.id,
+                'name': chapter.name,
+                'question_count': question_count
+            })
+        
+        subjects_with_chapters.append({
+            'id': subject.id,
+            'name': subject.name,
+            'chapters': chapters
+        })
+
+    return render_template('admin.html', subjects=subjects_with_chapters)
 
 
 @app.route('/new_sub')
@@ -188,7 +224,7 @@ def login():
                 return redirect(url_for('admin_dashboard'))  
 
             
-            return redirect(url_for('dashboard'))  
+            return redirect(url_for('user_dashboard'))  
         
         else:
             flash('Invalid email or password!', 'danger')
@@ -235,6 +271,29 @@ def register():
 
     return render_template('register.html')
 
+@app.route('/view_quiz/<int:quiz_id>')
+def view_quiz(quiz_id):
+    if 'user_id' not in session:
+        flash('Please log in to continue.', 'danger')
+        return redirect(url_for('login'))
+
+    # Using Join to fetch quiz details and count questions dynamically
+    quiz = db.session.query(
+        Quiz.id, Quiz.date_of_quiz, Quiz.time_duration,
+        Subject.name.label('subject_name'), Chapter.name.label('chapter_name'),
+        db.func.count(Question.id).label('num_questions')  # Count number of questions
+    ).join(Chapter, Quiz.chapter_id == Chapter.id)\
+     .join(Subject, Chapter.subject_id == Subject.id)\
+     .outerjoin(Question, Quiz.id == Question.quiz_id)\
+     .filter(Quiz.id == quiz_id)\
+     .group_by(Quiz.id, Subject.name, Chapter.name)\
+     .first()
+
+    if not quiz:
+        flash('Quiz not found!', 'danger')
+        return redirect(url_for('user_dashboard'))
+
+    return render_template('viewquiz.html', quiz=quiz)
 
 
 @app.route('/add_subject', methods=['POST'])

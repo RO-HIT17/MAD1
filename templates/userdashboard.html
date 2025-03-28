@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Dashboard</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='userdashboard.css') }}">
+</head>
+<body>
+    <!-- ✅ Header Section (Fixed) -->
+    <div class="header">
+        <div class="nav-links">
+            <a href="{{ url_for('user_dashboard') }}">Home</a> | 
+            <a href="{{ url_for('log') }}">Scores</a> | 
+            <a href="{{ url_for('summary') }}">Summary</a> | 
+            <a href="{{ url_for('logout') }}">Logout</a>
+        </div>
+        <div class="search-box">
+            <input type="text" placeholder="Search">
+            <button>Search</button>
+        </div>
+        <div class="user-welcome">
+            Welcome, {{ session.get('username', 'User') }}!
+        </div>
+    </div>
+
+    <!-- ✅ Dashboard Content -->
+    <div class="dashboard">
+        <h3>Available Quizzes</h3>
+        <table>
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Subject</th>
+                    <th>No. of Questions</th>
+                    <th>Date</th>
+                    <th>Duration</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for quiz in quizzes %}
+                <tr>
+                    <td>{{ quiz.id }}</td>
+                    <td>{{ quiz.subject_name }}</td>
+                    <td>{{ quiz.num_questions }}</td>
+                    <td>{{ quiz.date_of_quiz }}</td>
+                    <td>{{ quiz.time_duration }}</td>
+                    <td>
+                        
+                            <button class="start">Start</button>
+                        
+                        <a href="{{ url_for('view_quiz', quiz_id=quiz.id) }}">
+                            <button class="view">View</button>
+                        </a>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</body>
+</html>

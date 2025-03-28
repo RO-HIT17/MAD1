@@ -1,0 +1,77 @@
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f4f4f4;
+    margin: 0;
+    padding: 0;
+}
+
+.dashboard {
+    width: 80%;
+    margin: 20px auto;
+    background: white;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.2);
+}
+
+.navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: #f8d568;
+    padding: 10px;
+    border-radius: 10px;
+}
+
+.nav-links a {
+    text-decoration: none;
+    color: green;
+    font-weight: bold;
+    margin: 0 10px;
+}
+
+.search-bar input {
+    padding: 5px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+}
+
+.search-bar button {
+    padding: 5px 10px;
+    border: none;
+    background: #3b82f6;
+    color: white;
+    cursor: pointer;
+    border-radius: 5px;
+}
+
+.user {
+    font-weight: bold;
+    color: #276fbf;
+}
+
+.content {
+    text-align: center;
+    margin-top: 20px;
+}
+
+h2 {
+    color: #276fbf;
+}
+
+.scores-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 15px;
+}
+
+.scores-table th, .scores-table td {
+    border: 1px solid #ccc;
+    padding: 10px;
+    text-align: center;
+}
+
+.scores-table th {
+    background: #d0e2f2;
+    font-weight: bold;
+}

@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>View Quiz</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='viewquiz.css') }}">
+</head>
+<body>
+    <div class="quiz-container">
+        <h2>View Quiz</h2>
+        <div class="quiz-details">
+            <label>ID :</label>
+            <input type="text" value="{{ quiz.id }}" readonly>
+
+            <label>Subject :</label>
+            <input type="text" class="highlight-green" value="{{ quiz.subject_name }}" readonly>
+
+            <label>Chapter :</label>
+            <input type="text" class="highlight-green" value="{{ quiz.chapter_name }}" readonly>
+
+            <label>Number of Questions :</label>
+            <input type="text" value="{{ quiz.num_questions }}" readonly>
+
+            <label>Scheduled Date :</label>
+            <input type="text" value="{{ quiz.date_of_quiz.strftime('%d/%m/%Y') }}" readonly>
+
+            <label>Duration :</label>
+            <input type="text" class="highlight-green" value="{{ quiz.time_duration }}" readonly>
+
+            <button class="close-btn" onclick="window.history.back()">Close</button>
+        </div>
+    </div>
+</body>
+</html>

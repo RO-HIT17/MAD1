@@ -12,7 +12,7 @@
                 .then(response => response.json())
                 .then(data => {
                     let chapterSelect = document.getElementById("chapter");
-                    chapterSelect.innerHTML = "";
+                    chapterSelect.innerHTML = "<option value='' selected disabled>Select Chapter</option>";
                     data.forEach(chapter => {
                         let option = document.createElement("option");
                         option.value = chapter.id;
@@ -50,9 +50,17 @@
                 <input type="date" name="date">
             </div>
 
+            <!-- ✅ Updated Duration Field (Dropdown) -->
             <div class="form-group">
                 <label>Duration:</label>
-                <input type="time" name="duration">
+                <select name="duration">
+                    <option value="" selected disabled>Select Duration</option>
+                    <option value="30">30 min</option>
+                    <option value="45">45 min</option>
+                    <option value="60">60 min</option>
+                    <option value="90">90 min</option>
+                    <option value="120">120 min</option>
+                </select>
             </div>
 
             <div class="button-group">
