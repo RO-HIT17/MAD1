@@ -1,33 +1,77 @@
+/* General Page Styling */
 body {
-    font-family: Arial, sans-serif;
+    font-family: 'Poppins', sans-serif;
+    background: #f0f4f8;
     margin: 0;
     padding: 0;
-    background-color: #f4f4f4;
+    text-align: center;
 }
 
-.dashboard {
-    width: 90%;
-    margin: 20px auto;
-}
-
-.navbar {
-    background: #333;
-    color: white;
-    padding: 15px;
+/* Header Bar */
+.header {
     display: flex;
     justify-content: space-between;
     align-items: center;
+    background: linear-gradient(135deg, #1e3a8a, #3b82f6);
+    padding: 15px 25px;
+    color: white;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+/* Navigation Links */
+.nav-links {
+    display: flex;
+    align-items: center;
+    gap: 15px;
 }
 
 .nav-links a {
-    color: white;
     text-decoration: none;
-    margin: 0 10px;
+    color: white;
+    font-weight: 600;
+    transition: 0.3s;
 }
 
 .nav-links a:hover {
+    color: #ffcc00;
     text-decoration: underline;
 }
+
+/* Search Box */
+.search-box {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.search-box input {
+    padding: 8px;
+    border: 2px solid white;
+    border-radius: 5px;
+    outline: none;
+}
+
+.search-box button {
+    background: #ffcc00;
+    color: black;
+    border: none;
+    padding: 8px 15px;
+    font-weight: bold;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.search-box button:hover {
+    background: #e6b800;
+}
+
+/* Admin Welcome Message */
+.admin-welcome {
+    font-weight: bold;
+    font-size: 16px;
+}
+
 
 .content {
     background: white;

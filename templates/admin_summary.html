@@ -8,16 +8,21 @@
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
 <body>
-    <div class="dashboard">
-        <nav class="navbar">
-            <div class="nav-links">
-                <a href="#">Home</a> |
-                <a href="#">Quiz</a> |
-                <a href="#">Summary</a> |
-                <a href="#">Logout</a>
-            </div>
-            <div class="admin-user">Admin Panel</div>
-        </nav>
+    <div class="header">
+        <div class="nav-links">
+            <a href="{{ url_for('admin_dashboard') }}">Home</a> | 
+            <a href="{{ url_for('quiz_management') }}">Quiz</a> | 
+            <a href="{{ url_for('admin_summary') }}">Summary</a> | 
+            <a href="{{ url_for('logout') }}">Logout</a>
+        </div>
+        <div class="search-box">
+            <input type="text" id="searchInput" placeholder="Search subject...">
+            <button onclick="searchSubjects()">Search 🔍</button>
+        </div>
+        <div class="admin-welcome">
+            Welcome, Admin
+        </div>
+    </div>
 
         <div class="content">
             <h2>Admin Summary</h2>
