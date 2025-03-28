@@ -5,84 +5,15 @@ from werkzeug.security import generate_password_hash, check_password_hash
 import json
 from sqlalchemy.orm import joinedload
 from sqlalchemy import func
+from model import db, Subject, Chapter, Quiz, Question, Score, User
+
 app = Flask(__name__)
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///quiz_master.db'  
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 app.config['SECRET_KEY'] ='#Arcanine17'
-db = SQLAlchemy(app)
 
 
-class User(db.Model):
-    id = db.Column(db.Integer, primary_key=True)
-    email = db.Column(db.String(100), unique=True, nullable=False)
-    password = db.Column(db.String(100), nullable=False)  
-    is_admin = db.Column(db.Boolean, default=False)
-    fullname = db.Column(db.String(150), nullable=False)
-    dob = db.Column(db.Date, nullable=False)  
-    qualification = db.Column(db.String(100), nullable=False)
-
-class Subject(db.Model):
-    id = db.Column(db.Integer, primary_key=True)
-    name = db.Column(db.String(200), nullable=False)
-    description = db.Column(db.Text, nullable=True)
-
-    def __repr__(self):
-        return f'<Subject {self.name}>'
-
-class Chapter(db.Model):
-    id = db.Column(db.Integer, primary_key=True)
-    subject_id = db.Column(db.Integer, db.ForeignKey('subject.id'), nullable=False)
-    name = db.Column(db.String(200), nullable=False)
-    description = db.Column(db.Text, nullable=True)
-    
-    subject = db.relationship('Subject', backref=db.backref('chapters', lazy=True))
-
-    def __repr__(self):
-        return f'<Chapter {self.name}>'
-
-
-class Quiz(db.Model):
-    id = db.Column(db.Integer, primary_key=True)
-    chapter_id = db.Column(db.Integer, db.ForeignKey('chapter.id'), nullable=False)
-    date_of_quiz = db.Column(db.Date, nullable=False)
-    time_duration = db.Column(db.String(10), nullable=False)  
-    remarks = db.Column(db.Text, nullable=True)
-
-    chapter = db.relationship('Chapter', backref=db.backref('quizzes', lazy=True))
-
-    def __repr__(self):
-        return f'<Quiz on {self.date_of_quiz}>'
-
-
-class Question(db.Model):
-    id = db.Column(db.Integer, primary_key=True)
-    quiz_id = db.Column(db.Integer, db.ForeignKey('quiz.id'), nullable=False)
-    question_title = db.Column(db.String(200), nullable=False)
-    question_statement = db.Column(db.Text, nullable=False)
-    option1 = db.Column(db.String(255), nullable=False)
-    option2 = db.Column(db.String(255), nullable=False)
-    option3 = db.Column(db.String(255), nullable=True)
-    option4 = db.Column(db.String(255), nullable=True)
-    correct_option = db.Column(db.String(10), nullable=False)  
-    
-    quiz = db.relationship('Quiz', backref=db.backref('questions', lazy=True))
-
-    def __repr__(self):
-        return f'<Question {self.question_statement[:50]}...>'
-
-
-class Score(db.Model):
-    id = db.Column(db.Integer, primary_key=True)
-    quiz_id = db.Column(db.Integer, db.ForeignKey('quiz.id'), nullable=False)
-    user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
-    time_stamp_of_attempt = db.Column(db.DateTime, nullable=False)
-    total_scored = db.Column(db.Integer, nullable=False)
-
-    quiz = db.relationship('Quiz', backref=db.backref('scores', lazy=True))
-    user = db.relationship('User', backref=db.backref('scores', lazy=True))
-
-    def __repr__(self):
-        return f'<Score {self.total_scored} by User {self.user_id}>'
+db.init_app(app)
 
 
 with app.app_context():
@@ -116,7 +47,7 @@ def user_dashboard():
         flash('Please log in first!', 'warning')
         return redirect(url_for('login'))
 
-    # Using JOIN to get subject name and count questions efficiently
+    
     quizzes = (
         db.session.query(
             Quiz.id,
@@ -142,7 +73,7 @@ def admin_dashboard():
 
     subjects = Subject.query.all()
 
-    # Fetch chapters and count questions
+    
     subjects_with_chapters = []
     for subject in subjects:
         chapters = []
@@ -201,7 +132,7 @@ def quiz_management():
 
 @app.route('/admin/summary')
 def admin_summary():
-    # Count the number of attempts per subject
+    
     subject_attempts = (
         db.session.query(Subject.name, func.count(Score.id))
         .join(Chapter, Subject.id == Chapter.subject_id)
@@ -211,7 +142,7 @@ def admin_summary():
         .all()
     )
     
-    # Get the top score for each chapter
+    
     top_scores = (
         db.session.query(Chapter.name, func.max(Score.total_scored))
         .join(Quiz, Chapter.id == Quiz.chapter_id)
@@ -307,11 +238,11 @@ def view_quiz(quiz_id):
         flash('Please log in to continue.', 'danger')
         return redirect(url_for('login'))
 
-    # Using Join to fetch quiz details and count questions dynamically
+    
     quiz = db.session.query(
         Quiz.id, Quiz.date_of_quiz, Quiz.time_duration,
         Subject.name.label('subject_name'), Chapter.name.label('chapter_name'),
-        db.func.count(Question.id).label('num_questions')  # Count number of questions
+        db.func.count(Question.id).label('num_questions')  
     ).join(Chapter, Quiz.chapter_id == Chapter.id)\
      .join(Subject, Chapter.subject_id == Subject.id)\
      .outerjoin(Question, Quiz.id == Question.quiz_id)\
@@ -331,7 +262,7 @@ def start_quiz(quiz_id):
         flash('Please log in to continue.', 'danger')
         return redirect(url_for('login'))
 
-    # Fetch quiz details
+    
     quiz = db.session.query(
         Quiz.id, Quiz.date_of_quiz, Quiz.time_duration,
         Subject.name.label('subject_name'), Chapter.name.label('chapter_name')
@@ -340,7 +271,7 @@ def start_quiz(quiz_id):
      .filter(Quiz.id == quiz_id)\
      .first()
 
-    # Fetch questions and convert to list of dictionaries
+    
     questions = Question.query.filter_by(quiz_id=quiz_id).all()
     questions_list = [{
         "id": q.id,
@@ -370,13 +301,13 @@ def submit_quiz():
     user_id = session['user_id']
     user_answers = data.get('answers', {})
 
-    # Fetch correct answers from DB
+    
     correct_answers = {q.id: q.correct_option for q in Question.query.filter_by(quiz_id=quiz_id).all()}
     
-    # Calculate Score
+    
     score = sum(1 for q_id, answer in user_answers.items() if correct_answers.get(int(q_id)) == answer)
 
-    # Store Score in Database
+    
     new_score = Score(
         quiz_id=quiz_id,
         user_id=user_id,
@@ -398,7 +329,7 @@ def view_scores():
     scores = db.session.query(
         Score.quiz_id, Score.total_scored, Score.time_stamp_of_attempt,
         Chapter.name.label('chapter_name'),
-        db.func.count(Question.id).label('total_questions')  # Count total questions in each quiz
+        db.func.count(Question.id).label('total_questions')  
     ).join(Quiz, Score.quiz_id == Quiz.id)\
      .join(Chapter, Quiz.chapter_id == Chapter.id)\
      .join(Question, Quiz.id == Question.quiz_id)\
@@ -417,7 +348,7 @@ def quiz_summary():
 
     user_id = session['user_id']
 
-    # Count the number of quizzes attempted per subject
+    
     subject_data = db.session.query(
         Subject.name.label('subject_name'),
         db.func.count(Score.quiz_id).label('quiz_count')
@@ -428,11 +359,11 @@ def quiz_summary():
      .group_by(Subject.name)\
      .all()
 
-    # Extract labels and values (Ensure non-empty lists)
+    
     subjects = [row.subject_name for row in subject_data] if subject_data else []
     subject_counts = [row.quiz_count for row in subject_data] if subject_data else []
 
-    # Count the number of quizzes attempted per month
+    
     month_data = db.session.query(
         db.func.strftime('%Y-%m', Score.time_stamp_of_attempt).label('month'),
         db.func.count(Score.quiz_id).label('quiz_count')
@@ -441,7 +372,7 @@ def quiz_summary():
      .order_by('month')\
      .all()
 
-    # Extract labels and values (Ensure non-empty lists)
+    
     months = [row.month for row in month_data] if month_data else []
     month_counts = [row.quiz_count for row in month_data] if month_data else []
 
