@@ -10,14 +10,12 @@
     <div class="chapter-container">
         <h2 class="title">New Chapter</h2>
         <form action="{{ url_for('add_chapter', subject_id=sub_id) }}" method="POST">
-            <label for="name">Name :</label>
+            <label for="name">Name:</label>
             <input type="text" id="name" name="name" required>
             
-            <label for="description">Description :</label>
+            <label for="description">Description:</label>
             <textarea id="description" name="description" required></textarea>
 
-            <p class="note">Note: may include more input fields….</p>
-            
             <div class="button-container">
                 <button type="submit" class="save-btn">Save</button>
                 <button type="button" class="cancel-btn" onclick="history.back()">Cancel</button>

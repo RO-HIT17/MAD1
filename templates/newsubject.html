@@ -17,10 +17,11 @@
                 <label for="description">Description:</label>
                 <textarea id="description" name="description" rows="4" required></textarea>
 
-                <button type="submit" class="submit-btn">Add Subject</button>
+                <div class="button-container">
+                    <button type="submit" class="submit-btn">Add Subject</button>
+                    <button type="button" class="close-btn" onclick="window.history.back();">Cancel</button>
+                </div>
             </form>
-
-            <button onclick="window.history.back();" class="close-btn">Cancel</button>
         </div>
     </div>
 </body>
