@@ -16,10 +16,10 @@
         </div>
         <div class="search-box">
             <input type="text" placeholder="Search">
-            <button>Search</button>
+            <button>🔍</button>
         </div>
         <div class="admin-welcome">
-            Welcome Admin
+            Welcome, Admin
         </div>
     </div>
 
@@ -41,23 +41,22 @@
                         <td>{{ chapter.name }}</td>
                         <td>{{ chapter.question_count }}</td>
                         <td>
-                            <a href="#" onclick="openEditModal({{ chapter.id }}, '{{ chapter.name }}', '{{ chapter.description }}')">Edit</a> /
+                            <button class="edit-btn" onclick="openEditModal({{ chapter.id }}, '{{ chapter.name }}', '{{ chapter.description }}')">✏️ Edit</button>
                             <form action="{{ url_for('delete_chapter', chapter_id=chapter.id) }}" method="POST" style="display:inline;">
-                                <button type="submit" class="delete-btn" onclick="return confirm('Are you sure you want to delete this chapter?');">Delete</button>
+                                <button type="submit" class="delete-btn" onclick="return confirm('Are you sure you want to delete this chapter?');">🗑 Delete</button>
                             </form>
                         </td>
-                        
                     </tr>
                     {% endfor %}
                 </table>
                 <a href="{{ url_for('new_chap', sub_id=subject.id) }}">
-                <button class="add-chapter">+ Chapter</button>
+                    <button class="add-chapter">+ Add Chapter</button>
                 </a>
             </div>
             {% endfor %}
         </div>
 
-        <p class="all-subjects">All subjects here ...</p>
+        
 
         <div class="add-subject">
             <a href="{{ url_for('new_sub') }}">
@@ -66,39 +65,42 @@
         </div>
     </div>
 
-    <!-- Hidden Edit Chapter Modal -->
-<div id="editChapterModal" class="modal">
-    <div class="modal-content">
-        <span class="close" onclick="closeModal()">&times;</span>
-        <h2>Edit Chapter</h2>
-        <form id="editChapterForm" method="POST">
-            <input type="hidden" name="chapter_id" id="chapter_id">
-            <div class="form-group">
-                <label for="chapter_name">Chapter Name:</label>
-                <input type="text" id="chapter_name" name="chapter_name" required>
-            </div>
-            <div class="form-group">
-                <label for="chapter_desc">Description:</label>
-                <textarea id="chapter_desc" name="chapter_desc"></textarea>
-            </div>
-            <button type="submit">Save</button>
-            <button type="button" onclick="closeModal()">Cancel</button>
-        </form>
+    <!-- Edit Chapter Modal -->
+    <div id="editChapterModal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeModal()">&times;</span>
+            <h2>Edit Chapter</h2>
+            <form id="editChapterForm" method="POST">
+                <input type="hidden" name="chapter_id" id="chapter_id">
+                <div class="form-group">
+                    <label for="chapter_name">Chapter Name:</label>
+                    <input type="text" id="chapter_name" name="chapter_name" required>
+                </div>
+                <div class="form-group">
+                    <label for="chapter_desc">Description:</label>
+                    <textarea id="chapter_desc" name="chapter_desc"></textarea>
+                </div>
+                <div class="modal-actions">
+                    <button type="submit" class="save-btn">Save</button>
+                    <button type="button" class="cancel-btn" onclick="closeModal()">Cancel</button>
+                </div>
+            </form>
+        </div>
     </div>
-</div>
-<script>
-    function openEditModal(id, name, desc) {
-        document.getElementById('editChapterModal').style.display = 'block';
-        document.getElementById('chapter_id').value = id;
-        document.getElementById('chapter_name').value = name;
-        document.getElementById('chapter_desc').value = desc;
-        document.getElementById('editChapterForm').action = `/chapter/edit/${id}`;
-    }
-    
-    function closeModal() {
-        document.getElementById('editChapterModal').style.display = 'none';
-    }
+
+    <script>
+        function openEditModal(id, name, desc) {
+            const modal = document.getElementById('editChapterModal');
+            modal.style.display = 'flex';
+            document.getElementById('chapter_id').value = id;
+            document.getElementById('chapter_name').value = name;
+            document.getElementById('chapter_desc').value = desc;
+            document.getElementById('editChapterForm').action = `/chapter/edit/${id}`;
+        }
+
+        function closeModal() {
+            document.getElementById('editChapterModal').style.display = 'none';
+        }
     </script>
-    
 </body>
 </html>

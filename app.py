@@ -2,7 +2,6 @@ from flask import Flask, render_template, request, redirect, url_for, flash, ses
 from flask_sqlalchemy import SQLAlchemy
 from datetime import datetime
 from werkzeug.security import generate_password_hash, check_password_hash
-import json
 from sqlalchemy.orm import joinedload
 from sqlalchemy import func
 from model import db, Subject, Chapter, Quiz, Question, Score, User
@@ -12,9 +11,7 @@ app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///quiz_master.db'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 app.config['SECRET_KEY'] ='#Arcanine17'
 
-
 db.init_app(app)
-
 
 with app.app_context():
     db.create_all()  
