@@ -30,6 +30,7 @@
                         <th>Quiz ID</th>
                         <th>Chapter</th>
                         <th>Marks Scored</th>
+                        <th>Total Questions</th>
                         <th>Date Attempted</th>
                     </tr>
                 </thead>
@@ -39,6 +40,7 @@
                         <td>{{ score.quiz_id }}</td>
                         <td>{{ score.chapter_name }}</td>
                         <td>{{ score.total_scored }}</td>
+                        <td>{{ score.total_questions }}</td>
                         <td>{{ score.time_stamp_of_attempt.strftime('%d-%m-%Y %H:%M') }}</td>
                     </tr>
                     {% endfor %}

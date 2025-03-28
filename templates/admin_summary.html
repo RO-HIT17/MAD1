@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Dashboard</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='admin_summary.css') }}">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+    <div class="dashboard">
+        <nav class="navbar">
+            <div class="nav-links">
+                <a href="#">Home</a> |
+                <a href="#">Users</a> |
+                <a href="#">Reports</a> |
+                <a href="#">Logout</a>
+            </div>
+            <div class="admin-user">Admin Panel</div>
+        </nav>
+
+        <div class="content">
+            <h2>Admin Summary</h2>
+
+            <div class="chart-container">
+                <div class="chart-box">
+                    <h3>User Attempts per Subject</h3>
+                    <canvas id="attemptsChart"></canvas>
+                </div>
+
+                <div class="chart-box">
+                    <h3>Top Score in Each Chapter</h3>
+                    <canvas id="topScoreChart"></canvas>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        let subjectLabels = {{ subjects | tojson | safe }} || [];
+        let subjectAttempts = {{ attempts | tojson | safe }} || [];
+
+        let chapterLabels = {{ chapters | tojson | safe }} || [];
+        let topScores = {{ top_scores | tojson | safe }} || [];
+
+        document.addEventListener("DOMContentLoaded", function() {
+            let ctx1 = document.getElementById('attemptsChart').getContext('2d');
+            new Chart(ctx1, {
+                type: 'pie',
+                data: {
+                    labels: subjectLabels,
+                    datasets: [{
+                        data: subjectAttempts,
+                        backgroundColor: ['#FF6384', '#36A2EB', '#FFCE56', '#4BC0C0', '#9966FF'],
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false
+                }
+            });
+
+            let ctx2 = document.getElementById('topScoreChart').getContext('2d');
+            new Chart(ctx2, {
+                type: 'bar',
+                data: {
+                    labels: chapterLabels,
+                    datasets: [{
+                        label: 'Top Score',
+                        data: topScores,
+                        backgroundColor: 'rgba(54, 162, 235, 0.6)',
+                        borderColor: 'rgba(54, 162, 235, 1)',
+                        borderWidth: 1
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    scales: {
+                        y: { beginAtZero: true }
+                    }
+                }
+            });
+        });
+    </script>
+</body>
+</html>

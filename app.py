@@ -4,6 +4,7 @@ from datetime import datetime
 from werkzeug.security import generate_password_hash, check_password_hash
 import json
 from sqlalchemy.orm import joinedload
+from sqlalchemy import func
 app = Flask(__name__)
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///quiz_master.db'  
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
@@ -198,11 +199,40 @@ def quiz_management():
 
     return render_template('quizmanagement.html', quizzes=quizzes)
 
-@app.route('/summary')
-def summary():
-    return render_template('summary.html')
+@app.route('/admin/summary')
+def admin_summary():
+    # Count the number of attempts per subject
+    subject_attempts = (
+        db.session.query(Subject.name, func.count(Score.id))
+        .join(Chapter, Subject.id == Chapter.subject_id)
+        .join(Quiz, Chapter.id == Quiz.chapter_id)
+        .join(Score, Quiz.id == Score.quiz_id)
+        .group_by(Subject.name)
+        .all()
+    )
+    
+    # Get the top score for each chapter
+    top_scores = (
+        db.session.query(Chapter.name, func.max(Score.total_scored))
+        .join(Quiz, Chapter.id == Quiz.chapter_id)
+        .join(Score, Quiz.id == Score.quiz_id)
+        .group_by(Chapter.name)
+        .all()
+    )
 
+    subjects = [row[0] for row in subject_attempts]
+    attempts = [row[1] for row in subject_attempts]
 
+    chapters = [row[0] for row in top_scores]
+    scores = [row[1] for row in top_scores]
+
+    return render_template(
+        'admin_summary.html',
+        subjects=subjects,
+        attempts=attempts,
+        chapters=chapters,
+        top_scores=scores
+    )
 
 @app.route('/login', methods=['GET', 'POST'])
 def login():
@@ -367,14 +397,58 @@ def view_scores():
 
     scores = db.session.query(
         Score.quiz_id, Score.total_scored, Score.time_stamp_of_attempt,
-        Chapter.name.label('chapter_name')
+        Chapter.name.label('chapter_name'),
+        db.func.count(Question.id).label('total_questions')  # Count total questions in each quiz
     ).join(Quiz, Score.quiz_id == Quiz.id)\
      .join(Chapter, Quiz.chapter_id == Chapter.id)\
+     .join(Question, Quiz.id == Question.quiz_id)\
      .filter(Score.user_id == user_id)\
+     .group_by(Score.quiz_id, Score.total_scored, Score.time_stamp_of_attempt, Chapter.name)\
      .order_by(Score.time_stamp_of_attempt.desc())\
      .all()
 
     return render_template('score.html', scores=scores, user_name=session.get('user_name'))
+
+@app.route('/summary')
+def quiz_summary():
+    if 'user_id' not in session:
+        flash('Please log in to continue.', 'danger')
+        return redirect(url_for('login'))
+
+    user_id = session['user_id']
+
+    # Count the number of quizzes attempted per subject
+    subject_data = db.session.query(
+        Subject.name.label('subject_name'),
+        db.func.count(Score.quiz_id).label('quiz_count')
+    ).join(Chapter, Subject.id == Chapter.subject_id)\
+     .join(Quiz, Chapter.id == Quiz.chapter_id)\
+     .join(Score, Quiz.id == Score.quiz_id)\
+     .filter(Score.user_id == user_id)\
+     .group_by(Subject.name)\
+     .all()
+
+    # Extract labels and values (Ensure non-empty lists)
+    subjects = [row.subject_name for row in subject_data] if subject_data else []
+    subject_counts = [row.quiz_count for row in subject_data] if subject_data else []
+
+    # Count the number of quizzes attempted per month
+    month_data = db.session.query(
+        db.func.strftime('%Y-%m', Score.time_stamp_of_attempt).label('month'),
+        db.func.count(Score.quiz_id).label('quiz_count')
+    ).filter(Score.user_id == user_id)\
+     .group_by('month')\
+     .order_by('month')\
+     .all()
+
+    # Extract labels and values (Ensure non-empty lists)
+    months = [row.month for row in month_data] if month_data else []
+    month_counts = [row.quiz_count for row in month_data] if month_data else []
+
+    return render_template('summary.html', 
+                           subjects=subjects or [], subject_counts=subject_counts or [], 
+                           months=months or [], month_counts=month_counts or [], 
+                           user_name=session.get('user_name', 'User'))
 
 @app.route('/add_subject', methods=['POST'])
 def add_subject():
