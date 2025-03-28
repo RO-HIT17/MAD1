@@ -1,8 +1,9 @@
-from flask import Flask, render_template, request, redirect, url_for, flash,session
+from flask import Flask, render_template, request, redirect, url_for, flash, session, jsonify
 from flask_sqlalchemy import SQLAlchemy
 from datetime import datetime
 from werkzeug.security import generate_password_hash, check_password_hash
-
+import json
+from sqlalchemy.orm import joinedload
 app = Flask(__name__)
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///quiz_master.db'  
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
@@ -55,6 +56,7 @@ class Quiz(db.Model):
 class Question(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     quiz_id = db.Column(db.Integer, db.ForeignKey('quiz.id'), nullable=False)
+    question_title = db.Column(db.String(200), nullable=False)
     question_statement = db.Column(db.Text, nullable=False)
     option1 = db.Column(db.String(255), nullable=False)
     option2 = db.Column(db.String(255), nullable=False)
@@ -134,7 +136,14 @@ def new_chap(sub_id):
 
 @app.route('/new_quiz')
 def new_quiz():
-    return render_template('newquiz.html')
+    subjects = Subject.query.all()
+    return render_template("newquiz.html", subjects=subjects)
+
+@app.route("/get_chapters/<int:subject_id>")
+def get_chapters(subject_id):
+    chapters = Chapter.query.filter_by(subject_id=subject_id).all()
+    chapter_list = [{"id": c.id, "name": c.name} for c in chapters]
+    return jsonify(chapter_list)
 
 @app.route('/new_ques')
 def new_ques():
@@ -142,7 +151,16 @@ def new_ques():
 
 @app.route('/quiz_manage')
 def quiz_management():
-    return render_template('quizmanagement.html')
+    quizzes = (
+        Quiz.query
+        .options(
+            joinedload(Quiz.chapter),  # Load chapter details
+            joinedload(Quiz.questions)  # Load all related questions
+        )
+        .all()
+    )
+
+    return render_template('quizmanagement.html', quizzes=quizzes)
 
 @app.route('/summary')
 def summary():
@@ -252,6 +270,77 @@ def add_chapter(subject_id):
         
     return render_template('newchapter.html', subject=subject)
 
+@app.route("/add_quiz", methods=["POST"])
+def add_quiz():
+    try:
+        chapter_id = request.form.get("chapter_id")
+        date_of_quiz = request.form.get("date")
+        time_duration = request.form.get("duration")
+        remarks = request.form.get("remarks", "")  # Optional field
+
+        # Convert date from string to Python Date object
+        date_of_quiz = datetime.strptime(date_of_quiz, "%Y-%m-%d").date()
+
+        # Create new quiz instance
+        new_quiz = Quiz(
+            chapter_id=chapter_id,
+            date_of_quiz=date_of_quiz,
+            time_duration=time_duration,
+            remarks=remarks
+        )
+
+        # Add to database and commit
+        db.session.add(new_quiz)
+        db.session.commit()
+
+        flash("Quiz added successfully!", "success")
+        return redirect(url_for("admin_dashboard"))
+    
+    except Exception as e:
+        db.session.rollback()
+        flash(f"Error adding quiz: {str(e)}", "danger")
+        return redirect(url_for("new_quiz"))
+
+@app.route("/new_question/<int:quiz_id>")
+def new_question(quiz_id):
+    quiz = Quiz.query.get_or_404(quiz_id)
+    quizzes = Quiz.query.options(joinedload(Quiz.chapter)).all()  # Fetch all quizzes
+
+    return render_template("newquestion.html", quiz=quiz, quizzes=quizzes)
+
+@app.route("/add_question", methods=["POST"])
+def add_question():
+    try:
+        quiz_id = int(request.form.get("quiz_id"))  # Convert to int
+        question_title = request.form.get("question_title")  # ✅ Get Question Title
+        question_statement = request.form.get("question_statement")
+        option1 = request.form.get("option1")
+        option2 = request.form.get("option2")
+        option3 = request.form.get("option3", "")  # Optional
+        option4 = request.form.get("option4", "")  # Optional
+        correct_option = request.form.get("correct_option")
+
+        new_question = Question(
+            quiz_id=quiz_id,
+            question_title=question_title,  # ✅ Store Question Title
+            question_statement=question_statement,
+            option1=option1,
+            option2=option2,
+            option3=option3,
+            option4=option4,
+            correct_option=correct_option
+        )
+
+        db.session.add(new_question)
+        db.session.commit()
+
+        flash("Question added successfully!", "success")
+        return redirect(url_for("new_question", quiz_id=quiz_id))  # Redirect to correct quiz page
+
+    except Exception as e:
+        db.session.rollback()
+        flash(f"Error adding question: {str(e)}", "danger")
+        return redirect(url_for("new_question", quiz_id=quiz_id))  # Redirect with the same quiz_id
 
 @app.route('/logout')
 def logout():

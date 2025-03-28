@@ -7,75 +7,52 @@
     <link rel="stylesheet" href="{{ url_for('static', filename='quizmanagement.css') }}">
 </head>
 <body>
-    <div class="quiz-container">
-        <header>
-            <h2 class="title">Quiz Management</h2>
-            <nav>
-                <a href="#">Home</a> | 
-                <a href="#">Quiz</a> | 
-                <a href="#">Summary</a> | 
-                <a href="#">Logout</a>
-                <div class="search-bar">
-                    <input type="text" placeholder="Search users/subject/quiz">
-                    <button>Search</button>
-                </div>
-                <span class="welcome-text">Welcome Admin</span>
-            </nav>
-        </header>
-
-        <div class="quiz-list">
-            <div class="quiz-box">
-                <h3>Quiz (CSS)</h3>
-                <table>
-                    <tr>
-                        <th>ID</th>
-                        <th>Q. Title</th>
-                        <th>Action</th>
-                    </tr>
-                    <tr>
-                        <td>1</td>
-                        <td>Classes</td>
-                        <td><a href="#">Edit/Delete</a></td>
-                    </tr>
-                    <tr>
-                        <td>2</td>
-                        <td>Internal Styles</td>
-                        <td><a href="#">Edit/Delete</a></td>
-                    </tr>
-                </table>
-                <button class="add-question">+ Question</button>
-            </div>
-
-            <div class="quiz-box">
-                <h3>Quiz (HTML)</h3>
-                <table>
-                    <tr>
-                        <th>ID</th>
-                        <th>Q. Title</th>
-                        <th>Action</th>
-                    </tr>
-                    <tr>
-                        <td>1</td>
-                        <td>&lt;h1&gt; element</td>
-                        <td><a href="#">Edit/Delete</a></td>
-                    </tr>
-                    <tr>
-                        <td>2</td>
-                        <td>&lt;div&gt; element</td>
-                        <td><a href="#">Edit/Delete</a></td>
-                    </tr>
-                    <tr>
-                        <td>3</td>
-                        <td>&lt;form&gt; element</td>
-                        <td><a href="#">Edit/Delete</a></td>
-                    </tr>
-                </table>
-                <button class="add-question">+ Question</button>
-            </div>
+    <!-- Header -->
+    <div class="header">
+        <div class="nav-links">
+            <a href="{{ url_for('admin_dashboard') }}">Home</a> | 
+            <a href="{{ url_for('quiz_management') }}">Quiz</a> | 
+            <a href="{{ url_for('summary') }}">Summary</a> | 
+            <a href="{{ url_for('logout') }}">Logout</a>
         </div>
-
-        <p class="all-quizzes">All quizzes here...</p>
-        <button class="new-quiz">+ New Quiz</button>
+        <div class="search-box">
+            <input type="text" placeholder="Search">
+            <button>Search</button>
+        </div>
+        <div class="admin-welcome">
+            Welcome Admin
+        </div>
     </div>
+
+    <!-- Quiz List -->
+    <div class="quiz-list">
+        <!-- Dynamically Rendered Quizzes -->
+        {% for quiz in quizzes %}
+        <div class="quiz-box">
+            <h3>Quiz ({{ quiz.chapter.name if quiz.chapter else 'No Chapter' }})</h3>
+            <table>
+                <tr>
+                    <th>ID</th>
+                    <th>Q. Title</th>
+                    <th>Action</th>
+                </tr>
+                {% for question in quiz.questions %}
+                <tr>
+                    <td>{{ question.id }}</td>
+                    <td>{{ question.question_statement }}</td>
+                </tr>
+                {% endfor %}
+            </table>
+            <a href="{{ url_for('new_question', quiz_id=quiz.id) }}">
+                <button class="add-question">+ Question</button>
+            </a>
+        </div>
+        {% endfor %}
+    </div>
+
+    <p class="all-quizzes">All quizzes here...</p>
+    <a href="{{ url_for('new_quiz') }}">
+        <button class="new-quiz">+ New Quiz</button>
+    </a>
 </body>
 </html>

@@ -10,38 +10,63 @@
     <div class="question-container">
         <h2 class="title">New Question</h2>
 
-        <form>
-            <label>Chapter ID:</label>
-            <input type="text" name="chapter_id">
-
-            <label>Question Title:</label>
-            <input type="text" name="question_title">
-
-            <label>Question Statement:</label>
-            <textarea name="question_statement"></textarea>
-
-            <div class="options-container">
-                <h3>Single Option Correct</h3>
-
-                <label>Option 1:</label>
-                <input type="text" name="option_1">
-
-                <label>Option 2:</label>
-                <input type="text" name="option_2">
-
-                <label>Option 3:</label>
-                <input type="text" name="option_3">
-
-                <label>Option 4:</label>
-                <input type="text" name="option_4">
-
-                <label>Correct Option:</label>
-                <input type="number" name="correct_option" min="1" max="4">
+        <!-- ✅ Fixed form action URL -->
+        <form action="{{ url_for('add_question') }}" method="POST">
+            <div class="form-group">
+                <label>Quiz:</label>
+                <select name="quiz_id">
+                    {% for q in quizzes %}
+                    <option value="{{ q.id }}" {% if q.id == quiz.id %} selected {% endif %}>
+                        {{ q.chapter.name }} - {{ q.date_of_quiz }}
+                    </option>
+                    {% endfor %}
+                </select>
+            </div>
+            
+            <!-- ✅ Added "Question Title" field -->
+            <div class="form-group">
+                <label>Question Title:</label>
+                <input type="text" name="question_title" required>
             </div>
 
-            <div class="buttons">
-                <button type="submit" class="save">Save and Next</button>
-                <button type="button" class="close">Close</button>
+            <div class="form-group">
+                <label>Question:</label>
+                <textarea name="question_statement" required></textarea>
+            </div>
+        
+            <div class="form-group">
+                <label>Option 1:</label>
+                <input type="text" name="option1" required>
+            </div>
+        
+            <div class="form-group">
+                <label>Option 2:</label>
+                <input type="text" name="option2" required>
+            </div>
+        
+            <div class="form-group">
+                <label>Option 3 (Optional):</label>
+                <input type="text" name="option3">
+            </div>
+        
+            <div class="form-group">
+                <label>Option 4 (Optional):</label>
+                <input type="text" name="option4">
+            </div>
+        
+            <div class="form-group">
+                <label>Correct Option:</label>
+                <select name="correct_option">
+                    <option value="1">Option 1</option>
+                    <option value="2">Option 2</option>
+                    <option value="3">Option 3</option>
+                    <option value="4">Option 4</option>
+                </select>
+            </div>
+        
+            <div class="button-group">
+                <button type="submit" class="save">Save</button>
+                <button type="button" class="cancel" onclick="history.back()">Cancel</button>
             </div>
         </form>
     </div>
