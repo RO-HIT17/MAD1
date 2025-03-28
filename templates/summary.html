@@ -8,77 +8,102 @@
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
 <body>
-    <div class="dashboard">
-        <nav class="navbar">
-            <div class="nav-links">
-                <a href="#">Home</a> |
-                <a href="#">Scores</a> |
-                <a href="#">Summary</a> |
-                <a href="#">Logout</a>
-            </div>
-            <div class="user">Welcome, {{ user_name }}</div>
+
+    <!-- 📌 Header Section -->
+    <header class="header">
+        <nav class="nav-links">
+            <a href="{{ url_for('user_dashboard') }}">Home</a>
+            <a href="{{ url_for('view_scores') }}">Scores</a>
+            <a href="{{ url_for('quiz_summary') }}">Summary</a>
+            <a href="{{ url_for('logout') }}" class="logout-btn">Logout</a>
         </nav>
 
-        <div class="content">
-            <h2>Quiz Summary</h2>
+        <div class="search-box">
+            <input id="search-input" type="text" placeholder="Search quizzes..." aria-label="Search Quizzes">
+            <button onclick="filterScores()">Search</button>
+        </div>
+
+        <div class="user-welcome">
+            Welcome, <span id="username">{{ session.get('username', 'User') }}</span>!
+        </div>
+    </header>
+
+    <!-- 📌 Dashboard Content -->
+    <main class="dashboard">
+        <section class="content">
+            <h2>📊 Quiz Summary</h2>
 
             <div class="chart-container">
                 <div class="chart-box">
-                    <h3>Quizzes Attempted per Subject</h3>
+                    <h3>📚 Quizzes Attempted per Subject</h3>
                     <canvas id="subjectChart"></canvas>
                 </div>
 
                 <div class="chart-box">
-                    <h3>Quizzes Attempted per Month</h3>
+                    <h3>📅 Quizzes Attempted per Month</h3>
                     <canvas id="monthChart"></canvas>
                 </div>
             </div>
-        </div>
-    </div>
+        </section>
+    </main>
 
     <script>
-        let subjectLabels = {{ subjects | tojson | safe }} || [];
-        let subjectData = {{ subject_counts | tojson | safe }} || [];
-
-        let monthLabels = {{ months | tojson | safe }} || [];
-        let monthData = {{ month_counts | tojson | safe }} || [];
-
         document.addEventListener("DOMContentLoaded", function() {
-            let ctx1 = document.getElementById('subjectChart').getContext('2d');
-            new Chart(ctx1, {
-                type: 'bar',
-                data: {
-                    labels: subjectLabels,
-                    datasets: [{
-                        label: 'Quizzes Attempted',
-                        data: subjectData,
-                        backgroundColor: 'rgba(54, 162, 235, 0.6)',
-                        borderColor: 'rgba(54, 162, 235, 1)',
-                        borderWidth: 1
-                    }]
-                },
-                options: {
-                    responsive: true,
-                    maintainAspectRatio: false
-                }
-            });
+            const subjectLabels = {{ subjects | tojson | safe }} || [];
+            const subjectData = {{ subject_counts | tojson | safe }} || [];
+            const monthLabels = {{ months | tojson | safe }} || [];
+            const monthData = {{ month_counts | tojson | safe }} || [];
 
-            let ctx2 = document.getElementById('monthChart').getContext('2d');
-            new Chart(ctx2, {
-                type: 'pie',
-                data: {
-                    labels: monthLabels,
-                    datasets: [{
-                        data: monthData,
-                        backgroundColor: ['#FF6384', '#36A2EB', '#FFCE56', '#4BC0C0'],
-                    }]
-                },
-                options: {
-                    responsive: true,
-                    maintainAspectRatio: false
-                }
-            });
+            const createChart = (ctx, type, labels, data, backgroundColors) => {
+                new Chart(ctx, {
+                    type: type,
+                    data: {
+                        labels: labels,
+                        datasets: [{
+                            label: 'Quizzes Attempted',
+                            data: data,
+                            backgroundColor: backgroundColors,
+                            borderColor: 'rgba(0,0,0,0.1)',
+                            borderWidth: 1
+                        }]
+                    },
+                    options: {
+                        responsive: true,
+                        maintainAspectRatio: false,
+                        plugins: {
+                            legend: { position: 'top' },
+                        }
+                    }
+                });
+            };
+
+            createChart(
+                document.getElementById('subjectChart').getContext('2d'),
+                'bar',
+                subjectLabels,
+                subjectData,
+                'rgba(54, 162, 235, 0.6)'
+            );
+
+            createChart(
+                document.getElementById('monthChart').getContext('2d'),
+                'doughnut',
+                monthLabels,
+                monthData,
+                ['#FF6384', '#36A2EB', '#FFCE56', '#4BC0C0']
+            );
         });
+
+        function filterScores() {
+            let searchValue = document.getElementById("search-input").value.toLowerCase();
+            let rows = document.querySelectorAll(".scores-table tbody tr");
+
+            rows.forEach(row => {
+                let text = row.innerText.toLowerCase();
+                row.style.display = text.includes(searchValue) ? "" : "none";
+            });
+        }
     </script>
+
 </body>
 </html>

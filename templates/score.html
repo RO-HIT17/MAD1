@@ -5,23 +5,29 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Quiz Scores</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='scores.css') }}">
+    <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
 </head>
 <body>
-    <div class="dashboard">
-        <nav class="navbar">
-            <div class="nav-links">
-                <a href="#">Home</a> |
-                <a href="#">Scores</a> |
-                <a href="#">Summary</a> |
-                <a href="{{ url_for('logout') }}">Logout</a>
-            </div>
-            <div class="search-bar">
-                <input type="text" id="search-input" placeholder="Search by date/scores...">
-                <button onclick="filterScores()">Search</button>
-            </div>
-            <div class="user">Welcome, {{ user_name }}</div>
-        </nav>
 
+    <!-- 📌 Header Section -->
+    <div class="header">
+        <div class="nav-links">
+            <a href="{{ url_for('user_dashboard') }}">Home</a>
+            <a href="{{ url_for('view_scores') }}">Scores</a>
+            <a href="{{ url_for('quiz_summary') }}">Summary</a>
+            <a href="{{ url_for('logout') }}">Logout</a>
+        </div>
+        <div class="search-box">
+            <input type="text" id="search-input" placeholder="Search..." onkeyup="filterScores()">
+            <i class="fas fa-search"></i>
+        </div>
+        <div class="user-welcome">
+            Welcome, {{ session.get('username', 'User') }}!
+        </div>
+    </div>
+
+    <!-- 📌 Dashboard Content -->
+    <div class="dashboard">
         <div class="content">
             <h2>Quiz Scores</h2>
             <table class="scores-table">
@@ -49,6 +55,7 @@
         </div>
     </div>
 
+    <!-- 📌 JavaScript -->
     <script>
         function filterScores() {
             let searchValue = document.getElementById("search-input").value.toLowerCase();

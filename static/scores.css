@@ -1,12 +1,80 @@
+/* 🎨 General Styling */
 body {
-    font-family: Arial, sans-serif;
-    background-color: #f4f4f4;
+    font-family: 'Poppins', sans-serif;
+    background: #f8fafc;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
     margin: 0;
     padding: 0;
 }
 
+/* 📌 Header Styling */
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: linear-gradient(135deg, #1e40af, #3b82f6);
+    padding: 15px 30px;
+    font-size: 18px;
+    color: white;
+    width: 100%;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+/* 📌 Navigation Links */
+.nav-links {
+    display: flex;
+    gap: 15px;
+}
+
+.nav-links a {
+    text-decoration: none;
+    color: white;
+    font-weight: 600;
+    transition: 0.3s;
+}
+
+.nav-links a:hover {
+    color: #facc15;
+    text-decoration: underline;
+}
+
+/* 📌 Search Box */
+.search-box {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.search-box input {
+    padding: 8px;
+    border: 2px solid white;
+    border-radius: 5px;
+    outline: none;
+    width: 200px;
+    transition: 0.3s;
+}
+
+.search-box input:focus {
+    border-color: #facc15;
+}
+
+.search-box i {
+    color: white;
+    font-size: 16px;
+}
+
+/* 📌 User Welcome Message */
+.user-welcome {
+    font-weight: bold;
+    color: white;
+}
+
+/* 📌 Dashboard Container */
 .dashboard {
-    width: 80%;
+    width: 90%;
+    max-width: 1000px;
     margin: 20px auto;
     background: white;
     padding: 20px;
@@ -14,42 +82,7 @@ body {
     box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.2);
 }
 
-.navbar {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    background: #f8d568;
-    padding: 10px;
-    border-radius: 10px;
-}
-
-.nav-links a {
-    text-decoration: none;
-    color: green;
-    font-weight: bold;
-    margin: 0 10px;
-}
-
-.search-bar input {
-    padding: 5px;
-    border-radius: 5px;
-    border: 1px solid #ccc;
-}
-
-.search-bar button {
-    padding: 5px 10px;
-    border: none;
-    background: #3b82f6;
-    color: white;
-    cursor: pointer;
-    border-radius: 5px;
-}
-
-.user {
-    font-weight: bold;
-    color: #276fbf;
-}
-
+/* 📌 Content Styling */
 .content {
     text-align: center;
     margin-top: 20px;
@@ -57,21 +90,52 @@ body {
 
 h2 {
     color: #276fbf;
+    margin-bottom: 15px;
 }
 
+/* 📌 Table Styling */
 .scores-table {
     width: 100%;
     border-collapse: collapse;
     margin-top: 15px;
 }
 
-.scores-table th, .scores-table td {
+.scores-table th, 
+.scores-table td {
     border: 1px solid #ccc;
-    padding: 10px;
+    padding: 12px;
     text-align: center;
 }
 
 .scores-table th {
-    background: #d0e2f2;
+    background: #1e3a8a;
+    color: white;
     font-weight: bold;
+}
+
+.scores-table tbody tr:hover {
+    background: #eef5ff;
+}
+
+/* 📌 Responsive Styles */
+@media (max-width: 768px) {
+    .header {
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+    }
+
+    .nav-links {
+        flex-direction: column;
+        gap: 8px;
+    }
+
+    .search-box input {
+        width: 150px;
+    }
+
+    .dashboard {
+        width: 95%;
+        padding: 15px;
+    }
 }

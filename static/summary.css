@@ -1,34 +1,82 @@
+/* 🎨 General Styling */
 body {
-    font-family: Arial, sans-serif;
+    font-family: 'Poppins', sans-serif;
+    background: #f8fafc;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
     margin: 0;
-    padding: 0;
-    background-color: #f4f4f4;
 }
 
+/* 📌 Header Styling */
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: linear-gradient(135deg, #1e40af, #3b82f6);
+    padding: 12px 25px;
+    font-size: 18px;
+    color: white;
+    width: 100%;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+/* 📌 Navigation Links */
+.nav-links a {
+    text-decoration: none;
+    color: white;
+    font-weight: 600;
+    margin-right: 15px;
+    transition: 0.3s;
+}
+
+.nav-links a:hover {
+    color: #facc15;
+    text-decoration: underline;
+}
+
+/* 📌 Search Box */
+.search-box {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.search-box input {
+    padding: 8px;
+    border: 2px solid white;
+    border-radius: 5px;
+    outline: none;
+}
+
+.search-box button {
+    background: #facc15;
+    color: black;
+    border: none;
+    padding: 8px 12px;
+    font-weight: bold;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.search-box button:hover {
+    background: #e6b800;
+}
+
+/* 📌 User Welcome Message */
+.user-welcome {
+    font-weight: bold;
+    color: white;
+}
+
+/* 📌 Dashboard Layout */
 .dashboard {
     width: 90%;
     margin: 20px auto;
 }
 
-.navbar {
-    background: #333;
-    color: white;
-    padding: 15px;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-}
-
-.nav-links a {
-    color: white;
-    text-decoration: none;
-    margin: 0 10px;
-}
-
-.nav-links a:hover {
-    text-decoration: underline;
-}
-
+/* 📌 Content Box */
 .content {
     background: white;
     padding: 20px;
@@ -37,6 +85,7 @@ body {
     margin-top: 20px;
 }
 
+/* 📊 Chart Layout */
 .chart-container {
     display: flex;
     justify-content: space-around;
@@ -52,9 +101,25 @@ body {
     padding: 20px;
     border-radius: 8px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease-in-out;
+}
+
+.chart-box:hover {
+    transform: scale(1.05);
 }
 
 canvas {
     width: 100% !important;
     height: 300px !important;
+}
+
+/* 📱 Responsive Adjustments */
+@media (max-width: 768px) {
+    .chart-container {
+        flex-direction: column;
+    }
+
+    .chart-box {
+        width: 90%;
+    }
 }
