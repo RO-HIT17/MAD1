@@ -1,5 +1,6 @@
+/* 🎨 General Styles */
 body {
-    font-family: Arial, sans-serif;
+    font-family: 'Poppins', sans-serif;
     background-color: #f4f4f4;
     display: flex;
     justify-content: center;
@@ -8,19 +9,22 @@ body {
     margin: 0;
 }
 
+/* 📌 Quiz Container */
 .quiz-container {
     width: 500px;
     background: white;
-    padding: 20px;
+    padding: 25px;
     border-radius: 10px;
-    box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.2);
+    box-shadow: 2px 2px 15px rgba(0, 0, 0, 0.2);
     text-align: center;
+    transition: transform 0.3s ease-in-out;
 }
 
-h2 {
-    color: #276fbf;
+.quiz-container:hover {
+    transform: scale(1.02);
 }
 
+/* 📌 Quiz Header */
 .quiz-header {
     display: flex;
     justify-content: space-between;
@@ -28,45 +32,71 @@ h2 {
     margin-bottom: 15px;
 }
 
-.qno {
-    font-weight: bold;
-    color: #276fbf;
-}
-
 .qno-box {
     background: #d4ed92;
     padding: 5px 10px;
     border-radius: 5px;
     font-weight: bold;
+    font-size: 16px;
 }
 
 .timer {
-    background: #d0e2f2;
+    background: #ffcc00;
     padding: 5px 15px;
     border-radius: 15px;
     font-weight: bold;
+    color: black;
+    font-size: 16px;
 }
 
+/* 📌 Progress Bar */
+.progress-bar-container {
+    width: 100%;
+    background: #e0e0e0;
+    height: 8px;
+    border-radius: 4px;
+    margin-bottom: 10px;
+    overflow: hidden;
+}
+
+.progress-bar {
+    height: 100%;
+    width: 0%;
+    background: #3b82f6;
+    transition: width 0.3s ease-in-out;
+}
+
+/* 📌 Question Box */
 .question-box {
     border: 2px solid #276fbf;
     padding: 15px;
     border-radius: 10px;
     margin-bottom: 15px;
     font-weight: bold;
+    font-size: 18px;
 }
 
+/* 📌 Options */
 .options {
     display: flex;
     flex-direction: column;
     gap: 10px;
     align-items: flex-start;
-    padding-left: 30px;
 }
 
 .options label {
     font-size: 16px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 8px;
 }
 
+.options input {
+    transform: scale(1.2);
+}
+
+/* 📌 Buttons */
 .buttons {
     margin-top: 20px;
     display: flex;
@@ -74,12 +104,13 @@ h2 {
 }
 
 button {
-    padding: 8px 15px;
+    padding: 10px 20px;
     border: none;
     border-radius: 5px;
     cursor: pointer;
-    font-size: 14px;
+    font-size: 16px;
     font-weight: bold;
+    transition: 0.3s;
 }
 
 .save-next {
@@ -87,7 +118,15 @@ button {
     color: white;
 }
 
+.save-next:hover {
+    background: #1e40af;
+}
+
 .submit {
     background: #38b000;
     color: white;
+}
+
+.submit:hover {
+    background: #267000;
 }

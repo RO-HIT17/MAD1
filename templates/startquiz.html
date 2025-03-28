@@ -12,8 +12,13 @@
 
         <!-- Timer and Question Number -->
         <div class="quiz-header">
-            <div class="qno">QNo. <span id="qno-box">1/{{ questions|length }}</span></div>
+            <div class="qno-box">QNo. <span id="qno-box">1/{{ questions|length }}</span></div>
             <div class="timer">⏳ <span id="timer"></span></div>
+        </div>
+
+        <!-- Progress Bar -->
+        <div class="progress-bar-container">
+            <div id="progress-bar" class="progress-bar"></div>
         </div>
 
         <!-- Question Statement -->
@@ -31,7 +36,7 @@
 
         <!-- Buttons -->
         <div class="buttons">
-            <button onclick="nextQuestion()" class="save-next">Save and Next</button>
+            <button onclick="nextQuestion()" class="save-next">Save & Next</button>
             <button onclick="submitQuiz()" class="submit">Submit</button>
         </div>
     </div>
@@ -39,9 +44,10 @@
     <script>
         let currentQuestionIndex = 0;
         let questions = {{ questions | tojson }};
-        let userAnswers = {};
-        let duration = "{{ quiz.time_duration }}"; // "HH:MM"
+        let userAnswers = JSON.parse(localStorage.getItem("userAnswers")) || {};
+        let duration = "{{ quiz.time_duration }}"; // Format: "HH:MM"
         let timerElement = document.getElementById("timer");
+        let progressBar = document.getElementById("progress-bar");
 
         function startTimer() {
             let [hours, minutes] = duration.split(":").map(Number);
@@ -51,7 +57,11 @@
                 let mins = Math.floor(totalSeconds / 60);
                 let secs = totalSeconds % 60;
                 timerElement.innerText = `${String(mins).padStart(2, '0')}:${String(secs).padStart(2, '0')}`;
-                
+
+                if (totalSeconds === 60) {
+                    alert("⏳ 1 minute left! Hurry up!");
+                }
+
                 if (totalSeconds <= 0) {
                     clearInterval(interval);
                     submitQuiz(); // Auto-submit when time runs out
@@ -69,14 +79,20 @@
             document.getElementById("option2").innerText = question.option2;
             document.getElementById("option3").innerText = question.option3 || "";
             document.getElementById("option4").innerText = question.option4 || "";
+
+            progressBar.style.width = `${((currentQuestionIndex + 1) / questions.length) * 100}%`;
         }
 
         function nextQuestion() {
             let selectedOption = document.querySelector('input[name="option"]:checked');
             if (selectedOption) {
                 userAnswers[questions[currentQuestionIndex].id] = selectedOption.value;
+                localStorage.setItem("userAnswers", JSON.stringify(userAnswers));
+            } else {
+                alert("Please select an answer before moving to the next question.");
+                return;
             }
-            
+
             if (currentQuestionIndex < questions.length - 1) {
                 currentQuestionIndex++;
                 loadQuestion();
@@ -86,6 +102,8 @@
         }
 
         function submitQuiz() {
+            if (!confirm("Are you sure you want to submit the quiz?")) return;
+
             fetch("/submit_quiz", {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
@@ -93,8 +111,9 @@
             })
             .then(response => response.json())
             .then(data => {
-                alert(`Quiz Submitted! Your Score: ${data.score}`);
-                window.location.href = "/user_dashboard"; // Redirect after submission
+                alert(`🎉 Quiz Submitted! Your Score: ${data.score}`);
+                localStorage.removeItem("userAnswers");
+                window.location.href = "/user_dashboard"; 
             });
         }
 
