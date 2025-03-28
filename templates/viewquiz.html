@@ -10,23 +10,23 @@
     <div class="quiz-container">
         <h2>View Quiz</h2>
         <div class="quiz-details">
-            <label>ID :</label>
-            <input type="text" value="{{ quiz.id }}" readonly>
+            <label for="quiz-id">ID:</label>
+            <input type="text" id="quiz-id" value="{{ quiz.id }}" readonly>
 
-            <label>Subject :</label>
-            <input type="text" class="highlight-green" value="{{ quiz.subject_name }}" readonly>
+            <label for="subject">Subject:</label>
+            <input type="text" id="subject" class="highlight-green" value="{{ quiz.subject_name }}" readonly>
 
-            <label>Chapter :</label>
-            <input type="text" class="highlight-green" value="{{ quiz.chapter_name }}" readonly>
+            <label for="chapter">Chapter:</label>
+            <input type="text" id="chapter" class="highlight-green" value="{{ quiz.chapter_name }}" readonly>
 
-            <label>Number of Questions :</label>
-            <input type="text" value="{{ quiz.num_questions }}" readonly>
+            <label for="num-questions">Number of Questions:</label>
+            <input type="text" id="num-questions" value="{{ quiz.num_questions }}" readonly>
 
-            <label>Scheduled Date :</label>
-            <input type="text" value="{{ quiz.date_of_quiz.strftime('%d/%m/%Y') }}" readonly>
+            <label for="date">Scheduled Date:</label>
+            <input type="text" id="date" value="{{ quiz.date_of_quiz.strftime('%d/%m/%Y') }}" readonly>
 
-            <label>Duration :</label>
-            <input type="text" class="highlight-green" value="{{ quiz.time_duration }}" readonly>
+            <label for="duration">Duration:</label>
+            <input type="text" id="duration" class="highlight-green" value="{{ quiz.time_duration }}" readonly>
 
             <button class="close-btn" onclick="window.history.back()">Close</button>
         </div>
