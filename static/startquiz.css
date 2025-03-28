@@ -1,4 +1,4 @@
-/* 🎨 General Styles */
+
 body {
     font-family: 'Poppins', sans-serif;
     background-color: #f4f4f4;
@@ -9,7 +9,7 @@ body {
     margin: 0;
 }
 
-/* 📌 Quiz Container */
+
 .quiz-container {
     width: 500px;
     background: white;
@@ -24,7 +24,7 @@ body {
     transform: scale(1.02);
 }
 
-/* 📌 Quiz Header */
+
 .quiz-header {
     display: flex;
     justify-content: space-between;
@@ -49,7 +49,7 @@ body {
     font-size: 16px;
 }
 
-/* 📌 Progress Bar */
+
 .progress-bar-container {
     width: 100%;
     background: #e0e0e0;
@@ -66,7 +66,7 @@ body {
     transition: width 0.3s ease-in-out;
 }
 
-/* 📌 Question Box */
+
 .question-box {
     border: 2px solid #276fbf;
     padding: 15px;
@@ -76,7 +76,7 @@ body {
     font-size: 18px;
 }
 
-/* 📌 Options */
+
 .options {
     display: flex;
     flex-direction: column;
@@ -96,7 +96,7 @@ body {
     transform: scale(1.2);
 }
 
-/* 📌 Buttons */
+
 .buttons {
     margin-top: 20px;
     display: flex;

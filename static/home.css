@@ -1,4 +1,4 @@
-/* Reset Styles */
+
 * {
     margin: 0;
     padding: 0;
@@ -6,7 +6,7 @@
     font-family: 'Poppins', sans-serif;
 }
 
-/* Header and Navigation */
+
 header {
     background: #1E1E2E;
     padding: 15px 0;
@@ -48,7 +48,7 @@ nav {
     color: #F8C537;
 }
 
-/* Hero Section */
+
 .hero {
     text-align: center;
     padding: 100px 20px;
@@ -81,7 +81,7 @@ nav {
     background: #FFD700;
 }
 
-/* Features Section */
+
 .features {
     display: flex;
     justify-content: center;
@@ -104,7 +104,7 @@ nav {
     background: #282842;
 }
 
-/* Footer */
+
 footer {
     text-align: center;
     padding: 15px;

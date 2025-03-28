@@ -1,7 +1,7 @@
-/* Google Font */
+
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap');
 
-/* General Styling */
+
 body {
     font-family: 'Poppins', sans-serif;
     background: linear-gradient(135deg, #007BFF, #6610F2);
@@ -14,7 +14,7 @@ body {
     box-sizing: border-box;
 }
 
-/* Registration Container */
+
 .container {
     width: 100%;
     max-width: 400px;
@@ -26,7 +26,7 @@ body {
     animation: fadeIn 0.8s ease-in-out;
 }
 
-/* Heading Styles */
+
 h1 {
     color: #333;
     font-size: 26px;
@@ -45,7 +45,7 @@ h2 {
     margin-bottom: 20px;
 }
 
-/* Input Fields */
+
 .input-group {
     text-align: left;
     margin-bottom: 15px;
@@ -77,7 +77,7 @@ h2 {
     box-shadow: 0px 0px 5px rgba(102, 16, 242, 0.5);
 }
 
-/* Button */
+
 button {
     width: 100%;
     padding: 12px;
@@ -95,7 +95,7 @@ button:hover {
     background: #0056b3;
 }
 
-/* Flash Messages */
+
 .messages {
     margin-top: 10px;
 }
@@ -107,7 +107,7 @@ button:hover {
     text-align: center;
 }
 
-/* Success & Error Messages */
+
 .messages .success {
     background: #28a745;
 }
@@ -116,7 +116,7 @@ button:hover {
     background: #dc3545;
 }
 
-/* Existing User Text */
+
 .existing-user-text {
     margin-top: 15px;
     font-size: 14px;
@@ -132,7 +132,7 @@ button:hover {
     text-decoration: underline;
 }
 
-/* Responsive Design */
+
 @media (max-width: 450px) {
     .container {
         width: 90%;
@@ -144,7 +144,7 @@ button:hover {
     }
 }
 
-/* Fade In Animation */
+
 @keyframes fadeIn {
     from {
         opacity: 0;

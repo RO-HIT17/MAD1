@@ -8,13 +8,13 @@
 </head>
 <body>
     <div class="login-container">
-        <h1 class="title">Quiz Master</h1> <!-- Title Added -->
+        <h1 class="title">Quiz Master</h1> 
         <h2>Login</h2>
 
         {% with messages = get_flashed_messages(with_categories=true) %}
             {% if messages %}
                 <div class="messages">
-                    <p class="{{ messages[-1][0] }}">{{ messages[-1][1] }}</p> <!-- Only display the last message -->
+                    <p class="{{ messages[-1][0] }}">{{ messages[-1][1] }}</p> 
                 </div>
             {% endif %}
         {% endwith %}

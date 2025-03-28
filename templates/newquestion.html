@@ -10,7 +10,7 @@
     <div class="question-container">
         <h2 class="title">New Question</h2>
 
-        <!-- ✅ Fixed form action URL -->
+        
         <form action="{{ url_for('add_question') }}" method="POST">
             <div class="form-group">
                 <label>Quiz:</label>
@@ -23,7 +23,7 @@
                 </select>
             </div>
             
-            <!-- ✅ Added "Question Title" field -->
+            
             <div class="form-group">
                 <label>Question Title:</label>
                 <input type="text" name="question_title" required>

@@ -1,4 +1,4 @@
-/* General Page Styling */
+
 body {
     font-family: 'Poppins', sans-serif;
     background: #f0f4f8;
@@ -7,7 +7,7 @@ body {
     text-align: center;
 }
 
-/* Header Bar */
+
 .header {
     display: flex;
     justify-content: space-between;
@@ -18,7 +18,7 @@ body {
     box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
 }
 
-/* Navigation Links */
+
 .nav-links {
     display: flex;
     align-items: center;
@@ -37,7 +37,7 @@ body {
     text-decoration: underline;
 }
 
-/* Search Box */
+
 .search-box {
     display: flex;
     align-items: center;
@@ -66,7 +66,7 @@ body {
     background: #e6b800;
 }
 
-/* Admin Welcome Message */
+
 .admin-welcome {
     font-weight: bold;
     font-size: 16px;

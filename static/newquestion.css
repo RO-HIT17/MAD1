@@ -1,4 +1,4 @@
-/* Reset & Base Styles */
+
 body {
     font-family: Arial, sans-serif;
     background-color: #f4f4f4;
@@ -9,18 +9,18 @@ body {
     margin: 0;
 }
 
-/* Centered Form Container */
+
 .question-container {
     background: white;
     padding: 25px;
     border-radius: 10px;
     box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.2);
     width: 100%;
-    max-width: 520px;  /* ✅ Ensures better fit on smaller screens */
+    max-width: 520px;  
     text-align: center;
 }
 
-/* Heading */
+
 h2 {
     color: #e67e22;
     font-size: 24px;
@@ -28,13 +28,13 @@ h2 {
     margin-bottom: 15px;
 }
 
-/* Form Styling */
+
 form {
     display: flex;
     flex-direction: column;
 }
 
-/* Labels */
+
 label {
     font-weight: bold;
     color: #276fbf;
@@ -42,7 +42,7 @@ label {
     text-align: left;
 }
 
-/* Input, Textarea & Select Fields */
+
 input, textarea, select {
     width: 100%;
     padding: 10px;
@@ -52,20 +52,20 @@ input, textarea, select {
     font-size: 16px;
 }
 
-/* Textarea Height */
+
 textarea {
     height: 80px;
     resize: vertical;
 }
 
-/* Dropdown Styling */
+
 select {
     appearance: none;
     background-color: white;
     cursor: pointer;
 }
 
-/* Options Container */
+
 .options-container {
     background: #eef2ff;
     padding: 15px;
@@ -77,14 +77,14 @@ select {
     color: #e67e22;
 }
 
-/* Button Group */
+
 .button-group {
     margin-top: 15px;
     display: flex;
     justify-content: space-between;
 }
 
-/* Button Styling */
+
 button {
     padding: 12px 18px;
     border: none;
@@ -95,19 +95,19 @@ button {
     transition: 0.2s ease-in-out;
 }
 
-/* Save Button */
+
 .save {
     background: #1148a0;
     color: white;
 }
 
-/* Cancel Button */
+
 .cancel {
     background: #ff6b6b;
     color: white;
 }
 
-/* Button Hover Effects */
+
 .save:hover {
     background: #0d3a7e;
 }
@@ -116,13 +116,13 @@ button {
     background: #e63946;
 }
 
-/* Responsive Design */
+
 @media (max-width: 480px) {
     .question-container {
         width: 90%;
     }
 
     button {
-        width: 48%; /* ✅ Ensures buttons fit properly on small screens */
+        width: 48%; 
     }
 }

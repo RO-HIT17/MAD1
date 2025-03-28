@@ -1,7 +1,7 @@
-/* Import Google Fonts */
+
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap');
 
-/* General Page Styling */
+
 body {
     font-family: 'Poppins', sans-serif;
     background: #f0f4f8;
@@ -10,7 +10,7 @@ body {
     text-align: center;
 }
 
-/* Header Bar */
+
 .header {
     display: flex;
     justify-content: space-between;
@@ -21,7 +21,7 @@ body {
     box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
 }
 
-/* Navigation Links */
+
 .nav-links {
     display: flex;
     align-items: center;
@@ -40,7 +40,7 @@ body {
     text-decoration: underline;
 }
 
-/* Search Box */
+
 .search-box {
     display: flex;
     align-items: center;
@@ -69,13 +69,13 @@ body {
     background: #e6b800;
 }
 
-/* Admin Welcome Message */
+
 .admin-welcome {
     font-weight: bold;
     font-size: 16px;
 }
 
-/* Main Dashboard Container */
+
 .dashboard-container {
     width: 90%;
     max-width: 1100px;
@@ -83,7 +83,7 @@ body {
     padding: 20px;
 }
 
-/* Subjects Container */
+
 .subjects-container {
     display: flex;
     flex-wrap: wrap;
@@ -92,7 +92,7 @@ body {
     margin-top: 20px;
 }
 
-/* Subject Card */
+
 .subject-card {
     background: white;
     padding: 20px;
@@ -107,7 +107,7 @@ body {
     transform: scale(1.02);
 }
 
-/* Table Styling */
+
 table {
     width: 100%;
     border-collapse: collapse;
@@ -119,7 +119,7 @@ table {
     text-align: center;
 }
 
-/* Table Header */
+
 th {
     background: #1e3a8a;
     color: white;
@@ -128,14 +128,14 @@ th {
     text-transform: uppercase;
 }
 
-/* Table Data */
+
 td {
     padding: 12px;
     font-size: 14px;
     border-bottom: 1px solid #ddd;
 }
 
-/* Alternating Row Colors */
+
 tr:nth-child(even) {
     background: #f2f2f2;
 }
@@ -144,7 +144,7 @@ tr:hover {
     background: #dce7ff;
 }
 
-/* Edit Button */
+
 .edit-btn {
     background: #1e90ff;
     color: white;
@@ -163,7 +163,7 @@ tr:hover {
     transform: scale(1.05);
 }
 
-/* General Button Styling */
+
 .add-chapter, .delete-btn {
     padding: 10px 18px;
     font-size: 14px;
@@ -193,7 +193,7 @@ tr:hover {
     transform: scale(1.05);
 }
 
-/* Add Subject Section */
+
 .all-subjects {
     font-size: 18px;
     color: #1e3a8a;
@@ -219,7 +219,7 @@ tr:hover {
     background: #cc8400;
 }
 
-/* Modal Styling */
+
 .modal {
     display: none;
     position: fixed;
@@ -234,7 +234,7 @@ tr:hover {
     align-items: center;
 }
 
-/* Modal Content */
+
 .modal-content {
     background: white;
     padding: 20px;
@@ -244,7 +244,7 @@ tr:hover {
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
 }
 
-/* Close Button */
+
 .close {
     float: right;
     font-size: 22px;
@@ -252,7 +252,7 @@ tr:hover {
     font-weight: bold;
 }
 
-/* Form Fields */
+
 .form-group {
     margin-bottom: 15px;
     text-align: left;
@@ -271,7 +271,7 @@ tr:hover {
     outline: none;
 }
 
-/* Save & Cancel Buttons */
+
 .modal-content button {
     padding: 10px 15px;
     border: none;
@@ -299,7 +299,7 @@ tr:hover {
     background: #a71d2a;
 }
 
-/* Responsive Design */
+
 @media (max-width: 768px) {
     .header {
         flex-direction: column;

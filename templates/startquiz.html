@@ -10,23 +10,23 @@
     <div class="quiz-container">
         <h2>Start the Quiz</h2>
 
-        <!-- Timer and Question Number -->
+        
         <div class="quiz-header">
             <div class="qno-box">QNo. <span id="qno-box">1/{{ questions|length }}</span></div>
             
         </div>
 
-        <!-- Progress Bar -->
+        
         <div class="progress-bar-container">
             <div id="progress-bar" class="progress-bar"></div>
         </div>
 
-        <!-- Question Statement -->
+        
         <div class="question-box">
             <p id="question-text">Loading question...</p>
         </div>
 
-        <!-- Options -->
+        
         <form class="options">
             <label><input type="radio" name="option" value="1"> <span id="option1"></span></label>
             <label><input type="radio" name="option" value="2"> <span id="option2"></span></label>
@@ -34,7 +34,7 @@
             <label><input type="radio" name="option" value="4"> <span id="option4"></span></label>
         </form>
 
-        <!-- Buttons -->
+        
         <div class="buttons">
             <button onclick="nextQuestion()" class="save-next">Save & Next</button>
             <button onclick="submitQuiz()" class="submit">Submit</button>

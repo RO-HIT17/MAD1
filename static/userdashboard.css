@@ -1,4 +1,4 @@
-/* 🎨 General Styling */
+
 body {
     font-family: 'Poppins', sans-serif;
     background: #f8fafc;
@@ -8,7 +8,7 @@ body {
     margin: 0;
 }
 
-/* 📌 Header Styling */
+
 .header {
     display: flex;
     justify-content: space-between;
@@ -21,7 +21,7 @@ body {
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
 }
 
-/* 📌 Navigation Links */
+
 .nav-links a {
     text-decoration: none;
     color: white;
@@ -35,7 +35,7 @@ body {
     text-decoration: underline;
 }
 
-/* 📌 Search Box */
+
 .search-box {
     display: flex;
     align-items: center;
@@ -63,13 +63,13 @@ body {
     background: #e6b800;
 }
 
-/* 📌 User Welcome Message */
+
 .user-welcome {
     font-weight: bold;
     color: white;
 }
 
-/* 📌 Dashboard Styling */
+
 .dashboard {
     width: 85%;
     background: white;
@@ -79,7 +79,7 @@ body {
     margin-top: 20px;
 }
 
-/* 📌 Table Styling */
+
 table {
     width: 100%;
     border-collapse: collapse;
@@ -98,12 +98,12 @@ th {
     text-transform: uppercase;
 }
 
-/* ✅ Alternate row colors for better readability */
+
 tbody tr:nth-child(odd) {
     background: #f1f5f9;
 }
 
-/* 📌 Buttons */
+
 button {
     padding: 8px 12px;
     border: none;
@@ -113,7 +113,7 @@ button {
     transition: 0.3s;
 }
 
-/* View Button */
+
 .view {
     background: #3b82f6;
     color: white;
@@ -123,7 +123,7 @@ button {
     background: #1e40af;
 }
 
-/* Start Button */
+
 .start {
     background: #16a34a;
     color: white;

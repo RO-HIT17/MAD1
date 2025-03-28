@@ -8,7 +8,7 @@
 </head>
 <body>
 
-    <!-- Header Section -->
+    
     <header class="header">
         <div class="nav-links">
             <a href="{{ url_for('admin_dashboard') }}">Home</a> | 
@@ -25,7 +25,7 @@
         <div class="admin-welcome">Welcome, Admin</div>
     </header>
 
-    <!-- Quiz List Section -->
+    
     <section class="quiz-list">
         {% for quiz in quizzes %}
         <div class="quiz-box">
@@ -75,7 +75,7 @@
         <button class="new-quiz">+ Create New Quiz</button>
     </a>
 
-    <!-- Hidden Edit Question Modal -->
+    
     <div id="editQuestionModal" class="modal">
         <div class="modal-content">
             <span class="close" onclick="closeEditModal()">&times;</span>

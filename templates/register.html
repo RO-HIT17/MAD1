@@ -14,7 +14,7 @@
         {% with messages = get_flashed_messages(with_categories=true) %}
             {% if messages %}
                 <div class="messages">
-                    <p class="{{ messages[-1][0] }}">{{ messages[-1][1] }}</p> <!-- Show only the last message -->
+                    <p class="{{ messages[-1][0] }}">{{ messages[-1][1] }}</p> 
                 </div>
             {% endif %}
         {% endwith %}

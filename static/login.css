@@ -1,4 +1,4 @@
-/* General Styles */
+
 body {
     font-family: 'Poppins', sans-serif;
     background: linear-gradient(135deg, #007BFF, #6610F2);
@@ -9,7 +9,7 @@ body {
     margin: 0;
 }
 
-/* Login Container */
+
 .login-container {
     width: 350px;
     padding: 25px;
@@ -19,7 +19,7 @@ body {
     text-align: center;
 }
 
-/* Title */
+
 .title {
     font-size: 26px;
     font-weight: bold;
@@ -27,13 +27,13 @@ body {
     margin-bottom: 5px;
 }
 
-/* Login Heading */
+
 h2 {
     color: #333;
     margin-bottom: 15px;
 }
 
-/* Input Fields */
+
 input {
     width: 92%;
     padding: 12px;
@@ -50,7 +50,7 @@ input:focus {
     box-shadow: 0px 0px 5px rgba(0, 123, 255, 0.5);
 }
 
-/* Button */
+
 button {
     width: 100%;
     padding: 12px;
@@ -68,7 +68,7 @@ button:hover {
     background: #0056b3;
 }
 
-/* Flash Messages - Show only the last message */
+
 .messages {
     margin-top: 10px;
 }
@@ -80,7 +80,7 @@ button:hover {
     text-align: center;
 }
 
-/* Success & Error Messages */
+
 .messages .success {
     background: #28a745;
 }
@@ -89,7 +89,7 @@ button:hover {
     background: #dc3545;
 }
 
-/* Register Link */
+
 p {
     margin-top: 15px;
 }

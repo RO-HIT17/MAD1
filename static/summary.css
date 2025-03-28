@@ -1,4 +1,4 @@
-/* 🎨 General Styling */
+
 body {
     font-family: 'Poppins', sans-serif;
     background: #f8fafc;
@@ -8,7 +8,7 @@ body {
     margin: 0;
 }
 
-/* 📌 Header Styling */
+
 .header {
     display: flex;
     justify-content: space-between;
@@ -21,7 +21,7 @@ body {
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
 }
 
-/* 📌 Navigation Links */
+
 .nav-links a {
     text-decoration: none;
     color: white;
@@ -35,7 +35,7 @@ body {
     text-decoration: underline;
 }
 
-/* 📌 Search Box */
+
 .search-box {
     display: flex;
     align-items: center;
@@ -64,19 +64,19 @@ body {
     background: #e6b800;
 }
 
-/* 📌 User Welcome Message */
+
 .user-welcome {
     font-weight: bold;
     color: white;
 }
 
-/* 📌 Dashboard Layout */
+
 .dashboard {
     width: 90%;
     margin: 20px auto;
 }
 
-/* 📌 Content Box */
+
 .content {
     background: white;
     padding: 20px;
@@ -85,7 +85,7 @@ body {
     margin-top: 20px;
 }
 
-/* 📊 Chart Layout */
+
 .chart-container {
     display: flex;
     justify-content: space-around;
@@ -113,7 +113,7 @@ canvas {
     height: 300px !important;
 }
 
-/* 📱 Responsive Adjustments */
+
 @media (max-width: 768px) {
     .chart-container {
         flex-direction: column;

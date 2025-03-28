@@ -9,8 +9,8 @@ body {
     display: flex;
     justify-content: center;
     align-items: center;
-    min-height: 100vh;  /* Prevents overflow on small screens */
-    padding: 20px;  /* Prevents content from touching screen edges */
+    min-height: 100vh;  
+    padding: 20px;  
 }
 
 .modal {
@@ -19,7 +19,7 @@ body {
     border-radius: 10px;
     box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.2);
     width: 100%;
-    max-width: 400px;  /* Responsive modal size */
+    max-width: 400px;  
     text-align: center;
     box-sizing: border-box;
 }
@@ -39,7 +39,7 @@ label {
 
 input[type="text"], textarea {
     width: 100%;
-    max-width: 320px;  /* Prevents UI breaking */
+    max-width: 320px;  
     padding: 10px;
     border: 2px solid #1e3a8a;
     border-radius: 5px;
@@ -48,7 +48,7 @@ input[type="text"], textarea {
 }
 
 textarea {
-    resize: vertical;  /* Allows resizing */
+    resize: vertical;  
     height: 100px;
 }
 

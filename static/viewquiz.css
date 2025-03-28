@@ -1,4 +1,4 @@
-/* ✅ General Styling */
+
 body {
     font-family: 'Poppins', sans-serif;
     background: linear-gradient(135deg, #f1f5f9, #e2e8f0);
@@ -10,7 +10,7 @@ body {
     height: 100vh;
 }
 
-/* ✅ Quiz Container */
+
 .quiz-container {
     background: white;
     padding: 35px;
@@ -47,14 +47,14 @@ h2:after {
     transform: translateX(-50%);
 }
 
-/* ✅ Quiz Details */
+
 .quiz-details {
     display: flex;
     flex-direction: column;
     gap: 16px;
 }
 
-/* ✅ Label Styling */
+
 label {
     font-weight: 600;
     color: #1e3a8a;
@@ -63,7 +63,7 @@ label {
     margin-bottom: 5px;
 }
 
-/* ✅ Input Fields */
+
 input {
     width: 100%;
     padding: 12px;
@@ -85,14 +85,14 @@ input:focus {
     outline: none;
 }
 
-/* ✅ Highlighted Fields */
+
 .highlight-green {
     background-color: #d1fadf;
     border-color: #16a34a;
     color: #064e3b;
 }
 
-/* ✅ Close Button */
+
 .close-btn {
     margin-top: 30px;
     width: 100%;
@@ -114,7 +114,7 @@ input:focus {
     box-shadow: 0 4px 12px rgba(37, 99, 235, 0.3);
 }
 
-/* ✅ Responsive Design */
+
 @media (max-width: 450px) {
     .quiz-container {
         width: 90%;
