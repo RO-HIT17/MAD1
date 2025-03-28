@@ -11,7 +11,7 @@
     <div class="header">
         <div class="nav-links">
             <a href="{{ url_for('user_dashboard') }}">Home</a> | 
-            <a href="{{ url_for('log') }}">Scores</a> | 
+            <a href="{{ url_for('view_scores') }}">Scores</a> | 
             <a href="{{ url_for('summary') }}">Summary</a> | 
             <a href="{{ url_for('logout') }}">Logout</a>
         </div>
@@ -47,9 +47,9 @@
                     <td>{{ quiz.date_of_quiz }}</td>
                     <td>{{ quiz.time_duration }}</td>
                     <td>
-                        
+                        <a href="{{ url_for('start_quiz', quiz_id=quiz.id) }}">
                             <button class="start">Start</button>
-                        
+                        </a>
                         <a href="{{ url_for('view_quiz', quiz_id=quiz.id) }}">
                             <button class="view">View</button>
                         </a>

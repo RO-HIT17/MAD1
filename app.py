@@ -295,6 +295,86 @@ def view_quiz(quiz_id):
 
     return render_template('viewquiz.html', quiz=quiz)
 
+@app.route('/start_quiz/<int:quiz_id>')
+def start_quiz(quiz_id):
+    if 'user_id' not in session:
+        flash('Please log in to continue.', 'danger')
+        return redirect(url_for('login'))
+
+    # Fetch quiz details
+    quiz = db.session.query(
+        Quiz.id, Quiz.date_of_quiz, Quiz.time_duration,
+        Subject.name.label('subject_name'), Chapter.name.label('chapter_name')
+    ).join(Chapter, Quiz.chapter_id == Chapter.id)\
+     .join(Subject, Chapter.subject_id == Subject.id)\
+     .filter(Quiz.id == quiz_id)\
+     .first()
+
+    # Fetch questions and convert to list of dictionaries
+    questions = Question.query.filter_by(quiz_id=quiz_id).all()
+    questions_list = [{
+        "id": q.id,
+        "question_statement": q.question_statement,
+        "option1": q.option1,
+        "option2": q.option2,
+        "option3": q.option3,
+        "option4": q.option4,
+        "correct_option": q.correct_option
+    } for q in questions]
+
+    if not quiz or not questions_list:
+        flash('Quiz or questions not found!', 'danger')
+        return redirect(url_for('user_dashboard'))
+
+    return render_template('startquiz.html', quiz=quiz, questions=questions_list)
+
+from datetime import datetime
+
+@app.route('/submit_quiz', methods=['POST'])
+def submit_quiz():
+    if 'user_id' not in session:
+        return jsonify({'error': 'Unauthorized'}), 401
+
+    data = request.get_json()
+    quiz_id = data.get('quiz_id')
+    user_id = session['user_id']
+    user_answers = data.get('answers', {})
+
+    # Fetch correct answers from DB
+    correct_answers = {q.id: q.correct_option for q in Question.query.filter_by(quiz_id=quiz_id).all()}
+    
+    # Calculate Score
+    score = sum(1 for q_id, answer in user_answers.items() if correct_answers.get(int(q_id)) == answer)
+
+    # Store Score in Database
+    new_score = Score(
+        quiz_id=quiz_id,
+        user_id=user_id,
+        time_stamp_of_attempt=datetime.utcnow(),
+        total_scored=score
+    )
+    db.session.add(new_score)
+    db.session.commit()
+    return jsonify({'score': score, 'message': 'Quiz submitted successfully!'})
+
+@app.route('/scores')
+def view_scores():
+    if 'user_id' not in session:
+        flash('Please log in to continue.', 'danger')
+        return redirect(url_for('login'))
+
+    user_id = session['user_id']
+
+    scores = db.session.query(
+        Score.quiz_id, Score.total_scored, Score.time_stamp_of_attempt,
+        Chapter.name.label('chapter_name')
+    ).join(Quiz, Score.quiz_id == Quiz.id)\
+     .join(Chapter, Quiz.chapter_id == Chapter.id)\
+     .filter(Score.user_id == user_id)\
+     .order_by(Score.time_stamp_of_attempt.desc())\
+     .all()
+
+    return render_template('score.html', scores=scores, user_name=session.get('user_name'))
 
 @app.route('/add_subject', methods=['POST'])
 def add_subject():
