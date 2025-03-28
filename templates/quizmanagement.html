@@ -18,8 +18,8 @@
         </div>
 
         <div class="search-box">
-            <input type="text" placeholder="Search...">
-            <button>🔍</button>
+            <input type="text" id="searchInput" placeholder="Search subject...">
+            <button onclick="searchSubjects()">Search 🔍</button>
         </div>
 
         <div class="admin-welcome">Welcome, Admin</div>
@@ -121,6 +121,20 @@
         document.addEventListener("DOMContentLoaded", function () {
             closeEditModal(); // Ensure modal is closed on page load
         });
+
+        function searchSubjects() {
+            let input = document.getElementById("searchInput").value.toLowerCase();
+            let subjectCards = document.querySelectorAll(".quiz-box"); // Assuming each quiz box is a subject card
+        
+            subjectCards.forEach(card => {
+                let subjectName = card.querySelector("h3").textContent.toLowerCase();
+                if (subjectName.includes(input)) {
+                    card.style.display = "block"; // Show the matching subject
+                } else {
+                    card.style.display = "none"; // Hide non-matching subjects
+                }
+            });
+        }
 
         function openEditModal(id, title, statement, opt1, opt2, opt3, opt4, correctOpt) {
             document.getElementById('editQuestionModal').style.display = 'block';
