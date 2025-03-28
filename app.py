@@ -9,14 +9,14 @@ app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 app.config['SECRET_KEY'] ='#Arcanine17'
 db = SQLAlchemy(app)
 
-# Define User Model
+
 class User(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     email = db.Column(db.String(100), unique=True, nullable=False)
-    password = db.Column(db.String(100), nullable=False)  # Store hashed password
+    password = db.Column(db.String(100), nullable=False)  
     is_admin = db.Column(db.Boolean, default=False)
     fullname = db.Column(db.String(150), nullable=False)
-    dob = db.Column(db.Date, nullable=False)  # Storing as Date format
+    dob = db.Column(db.Date, nullable=False)  
     qualification = db.Column(db.String(100), nullable=False)
 
 class Subject(db.Model):
@@ -27,7 +27,6 @@ class Subject(db.Model):
     def __repr__(self):
         return f'<Subject {self.name}>'
 
-# Chapter Model
 class Chapter(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     subject_id = db.Column(db.Integer, db.ForeignKey('subject.id'), nullable=False)
@@ -39,12 +38,12 @@ class Chapter(db.Model):
     def __repr__(self):
         return f'<Chapter {self.name}>'
 
-# Quiz Model
+
 class Quiz(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     chapter_id = db.Column(db.Integer, db.ForeignKey('chapter.id'), nullable=False)
     date_of_quiz = db.Column(db.Date, nullable=False)
-    time_duration = db.Column(db.String(10), nullable=False)  # Format: HH:MM
+    time_duration = db.Column(db.String(10), nullable=False)  
     remarks = db.Column(db.Text, nullable=True)
 
     chapter = db.relationship('Chapter', backref=db.backref('quizzes', lazy=True))
@@ -52,7 +51,7 @@ class Quiz(db.Model):
     def __repr__(self):
         return f'<Quiz on {self.date_of_quiz}>'
 
-# Question Model
+
 class Question(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     quiz_id = db.Column(db.Integer, db.ForeignKey('quiz.id'), nullable=False)
@@ -61,14 +60,14 @@ class Question(db.Model):
     option2 = db.Column(db.String(255), nullable=False)
     option3 = db.Column(db.String(255), nullable=True)
     option4 = db.Column(db.String(255), nullable=True)
-    correct_option = db.Column(db.String(10), nullable=False)  # Store the correct answer
+    correct_option = db.Column(db.String(10), nullable=False)  
     
     quiz = db.relationship('Quiz', backref=db.backref('questions', lazy=True))
 
     def __repr__(self):
         return f'<Question {self.question_statement[:50]}...>'
 
-# Score Model
+
 class Score(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     quiz_id = db.Column(db.Integer, db.ForeignKey('quiz.id'), nullable=False)
@@ -83,16 +82,15 @@ class Score(db.Model):
         return f'<Score {self.total_scored} by User {self.user_id}>'
 
 
-
 with app.app_context():
-    db.create_all()  # Ensure tables are created
+    db.create_all()  
     if not User.query.filter_by(email="admin@example.com").first():
         admin_user = User(
             email="admin@example.com",
             password=generate_password_hash("admin123", method="pbkdf2:sha256"),
             is_admin=True,
             fullname="Admin User",
-            dob=datetime.strptime("1990-01-01", "%Y-%m-%d").date(),  # Convert string to date
+            dob=datetime.strptime("1990-01-01", "%Y-%m-%d").date(),  
             qualification="Master's Degree"
         )
         db.session.add(admin_user)
@@ -109,7 +107,6 @@ def log():
 def reg():
     return render_template('register.html')
 
-# 🔹 DASHBOARD (Protected Route)
 @app.route('/dashboard')
 def dashboard():
     if 'user_id' not in session:
@@ -123,30 +120,46 @@ def admin_dashboard():
     if 'user_id' not in session or not session.get('is_admin'):
         flash('Access denied! Admins only.', 'danger')
         return redirect(url_for('login'))
-    
-    return render_template('admin.html')
+    subjects = Subject.query.all()
+    return render_template('admin.html', subjects=subjects)
 
 
 @app.route('/new_sub')
 def new_sub():
     return render_template('newsubject.html')
 
-@app.route('/new_chap')
-def new_chap():
-    return render_template('newchapter.html')
+@app.route('/new_chap/<int:sub_id>')
+def new_chap(sub_id):
+    return render_template('newchapter.html', sub_id=sub_id)
 
+@app.route('/new_quiz')
+def new_quiz():
+    return render_template('newquiz.html')
 
-# 🔹 LOGIN ROUTE
+@app.route('/new_ques')
+def new_ques():
+    return render_template('newquestion.html')
+
+@app.route('/quiz_manage')
+def quiz_management():
+    return render_template('quizmanagement.html')
+
+@app.route('/summary')
+def summary():
+    return render_template('summary.html')
+
+#---------------------------------------------------------------------------------
+
 @app.route('/login', methods=['GET', 'POST'])
 def login():
     if request.method == 'POST':
         email = request.form['email']
         password = request.form['password']
 
-        # Fetch user from the database
+        
         user = User.query.filter_by(email=email).first()
 
-        # Check if user exists and password is correct
+        
         if user and check_password_hash(user.password, password):
             session['user_id'] = user.id
             session['email'] = user.email
@@ -156,7 +169,7 @@ def login():
             if user.is_admin:
                 return redirect(url_for('admin_dashboard'))  
 
-            # Redirect normal users to user dashboard
+            
             return redirect(url_for('dashboard'))  
         
         else:
@@ -173,19 +186,19 @@ def register():
         qualification = request.form['qualification']
         dob = request.form['dob']
 
-        # Check if email already exists
+        
         existing_user = User.query.filter_by(email=email).first()
         if existing_user:
             flash('Email already exists! Please log in.', 'danger')
             return redirect(url_for('register'))
 
-        # Convert dob from string to date format
+        
         dob = datetime.strptime(dob, '%Y-%m-%d').date()
 
-        # Hash password before storing
+        
         hashed_password = generate_password_hash(password)
 
-        # Create a new user
+        
         new_user = User(
             email=email,
             password=hashed_password,
@@ -194,19 +207,21 @@ def register():
             dob=dob
         )
 
-        # Add and commit to database
+        
         db.session.add(new_user)
         db.session.commit()
 
         flash('Registration successful! You can now log in.', 'success')
-        #return render_template('login.html')
+        
         return redirect(url_for('login'))
 
     return render_template('register.html')
 
+#---------------------------------------------------------------------------------
+
 @app.route('/add_subject', methods=['POST'])
 def add_subject():
-    if not session.get('is_admin'):  # Only admin can add subjects
+    if not session.get('is_admin'):  
         flash('Unauthorized access!', 'danger')
         return redirect(url_for('admin_dashboard'))
 
@@ -233,16 +248,14 @@ def add_chapter(subject_id):
         db.session.commit()
 
         flash(f'Chapter "{chapter_name}" added successfully!', 'success')
-        return render_template('admin.html', subject=subject)
-        return redirect(url_for('view_subject', subject_id=subject.id))  # Redirect to subject details
-
+        return redirect(url_for('admin_dashboard')) 
+        
     return render_template('newchapter.html', subject=subject)
 
 
-# 🔹 LOGOUT ROUTE
 @app.route('/logout')
 def logout():
-    session.clear()  # Clear all session data
+    session.clear()  
     flash('Logged out successfully!', 'info')
     return redirect(url_for('login'))
 

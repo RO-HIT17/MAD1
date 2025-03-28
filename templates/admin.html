@@ -9,9 +9,9 @@
 <body>
     <div class="header">
         <div class="nav-links">
-            <a href="#">Home</a> | 
-            <a href="#">Quiz</a> | 
-            <a href="#">Summary</a> | 
+            <a href="{{ url_for('admin_dashboard') }}">Home</a> | 
+            <a href="{{ url_for('quiz_management') }}">Quiz</a> | 
+            <a href="{{ url_for('summary') }}">Summary</a> | 
             <a href="{{ url_for('logout') }}">Logout</a>
         </div>
         <div class="search-box">
@@ -27,51 +27,30 @@
         <h1>Admin Dashboard</h1>
 
         <div class="subjects-container">
+            {% for subject in subjects %}
             <div class="subject-card">
-                <h2>Physics</h2>
+                <h2>{{ subject.name }}</h2>
                 <table>
                     <tr>
                         <th>Chapter Name</th>
                         <th>No. of Questions</th>
                         <th>Action</th>
                     </tr>
+                    {% for chapter in subject.chapters %}
                     <tr>
-                        <td>Force</td>
+                        <td>{{ chapter.name }}</td>
                         <td>xxxxxx</td>
-                        <td><a href="#">Edit</a> / <a href="#">Delete</a></td>
+                        <td>
+                            <a href="#">Edit</a> / <a href="#">Delete</a>
+                        </td>
                     </tr>
-                    <tr>
-                        <td>EMF</td>
-                        <td>xxxxxx</td>
-                        <td><a href="#">Edit</a> / <a href="#">Delete</a></td>
-                    </tr>
+                    {% endfor %}
                 </table>
-                <button class="add-chapter">+ Chapter</button>
-            </div>
-
-            <div class="subject-card">
-                <h2>App Dev-I</h2>
-                <table>
-                    <tr>
-                        <th>Chapter Name</th>
-                        <th>No. of Questions</th>
-                        <th>Action</th>
-                    </tr>
-                    <tr>
-                        <td>HTML</td>
-                        <td>xxxxxx</td>
-                        <td><a href="#">Edit</a> / <a href="#">Delete</a></td>
-                    </tr>
-                    <tr>
-                        <td>CSS</td>
-                        <td>xxxxxx</td>
-                        <td><a href="#">Edit</a> / <a href="#">Delete</a></td>
-                    </tr>
-                </table>
-                <a href="{{ url_for('new_chap') }}">
+                <a href="{{ url_for('new_chap', sub_id=subject.id) }}">
                 <button class="add-chapter">+ Chapter</button>
                 </a>
             </div>
+            {% endfor %}
         </div>
 
         <p class="all-subjects">All subjects here ...</p>
