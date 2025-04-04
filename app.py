@@ -5,7 +5,7 @@ from werkzeug.security import generate_password_hash, check_password_hash
 from sqlalchemy.orm import joinedload
 from sqlalchemy import func
 from model import db, Subject, Chapter, Quiz, Question, Score, User
-
+#TODO Test Commit 
 app = Flask(__name__)
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///quiz_master.db'  
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
